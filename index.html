@@ -1,245 +1,166 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy Birthday</title>
 
 <style>
-/* ============================
-   STYLE UMUM
-============================ */
-body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ffb6c1, #ffe6f2, #ffd1dc);
-    overflow-x: hidden;
-}
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #f7d6e0;
+        text-align: center;
+        overflow-x: hidden;
+    }
 
-/* ============================
-   BINGKAI FOTO
-============================ */
-.foto-wrapper {
-    display: inline-block;
-    padding: 20px;
-    border: 12px solid transparent;
-    border-image: url('bingkai-bunga.png') 30 round;
-    margin-top: 30px;
-}
-.foto-wrapper img {
-    width: 250px;
-    border-radius: 12px;
-}
+    /* ===== Foto + Bingkai ===== */
+    .frame {
+        width: 260px;
+        height: 260px;
+        padding: 20px;
+        background-image: url('bingkai.png'); /* pastikan nama sama! */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        margin: 30px auto 10px auto;
+    }
 
-/* ============================
-   TEKS HAPPY BIRTHDAY
-============================ */
-h1 {
-    font-size: 60px;
-    color: pink;
-    text-shadow: 0 0 10px white, 0 0 20px pink;
-    animation: glow 2s ease-in-out infinite alternate;
-}
+    .foto {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    }
 
-@keyframes glow {
-    from { text-shadow: 0 0 5px white, 0 0 10px pink; }
-    to   { text-shadow: 0 0 20px white, 0 0 40px hotpink; }
-}
+    h1 {
+        color: pink;
+        font-size: 38px;
+        margin-top: -5px;
+    }
 
-/* ============================
-   TEKS BERJALAN
-============================ */
-.marquee {
-    margin-top: 20px;
-    width: 100%;
-    overflow: hidden;
-}
-.marquee span {
-    display: inline-block;
-    font-size: 22px;
-    font-weight: bold;
-    animation: jalan 10s linear infinite;
-}
-@keyframes jalan {
-    from { transform: translateX(100%); }
-    to   { transform: translateX(-100%); }
-}
+    .umur {
+        font-size: 24px;
+        margin-top: -5px;
+    }
 
-/* ============================
-   FORM PESAN
-============================ */
-input, button {
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 10px;
-}
-button {
-    background: hotpink;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-button:hover {
-    background: deeppink;
-}
+    /* ===== Teks Berjalan ===== */
+    marquee {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #b4004e;
+        font-weight: bold;
+    }
 
-/* ============================
-   EFEK HATI MELAYANG
-============================ */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    color: rgba(255,0,102,0.8);
-    font-size: 20px;
-    animation: floatUp 5s linear infinite;
-}
+    /* ===== Form Pesan ===== */
+    .pesan-box {
+        margin-top: 25px;
+    }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) translateX(0); opacity: 1; }
-    100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
-}
+    input {
+        width: 60%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid #ff7aa8;
+    }
 
-/* ============================
-   EFEK GLITTER
-============================ */
-.glitter {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background-image: url('https://i.imgur.com/5M0SxN8.png');
-    opacity: 0.25;
-    animation: glitterMove 20s linear infinite;
-}
+    button {
+        padding: 10px 15px;
+        background: hotpink;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        font-weight: bold;
+    }
 
-@keyframes glitterMove {
-    from { background-position: 0 0; }
-    to   { background-position: 1000px 1000px; }
-}
+    .status {
+        margin-top: 10px;
+        color: red;
+    }
 
-/* ============================
-   BUNGA JATUH
-============================ */
-.flower {
-    position: fixed;
-    top: -50px;
-    font-size: 20px;
-    animation: jatuh 6s linear infinite;
-}
-
-@keyframes jatuh {
-    from { transform: translateY(0) rotate(0deg); }
-    to   { transform: translateY(110vh) rotate(360deg); }
-}
 </style>
 </head>
-
 <body>
 
-<audio src="musik.mp3" autoplay loop></audio>
+<!-- Musik -->
+<audio src="musik.mp3" autoplay loop hidden></audio>
 
-<div class="glitter"></div>
-
-<div class="foto-wrapper">
-    <img src="foto.jpg" alt="Foto">
+<!-- Foto + Bingkai -->
+<div class="frame">
+    <img src="foto.jpg" class="foto">
 </div>
 
-<h1>Happy Birthday!</h1>
+<h1>Happy Birthday 🎉🎂</h1>
 
-<div class="marquee">
-    <span>Semoga keinginan dan harapannya terkabul</span>
+<!-- Umur -->
+<p class="umur" id="umur">...</p>
+
+<!-- Teks Berjalan -->
+<marquee>Semoga keinginan dan harapannya terkabul 💖</marquee>
+
+<!-- Form Pesan -->
+<div class="pesan-box">
+    <h2>Kirim Harapan</h2>
+    <input type="text" id="pesan" placeholder="Tulis harapanmu...">
+    <button onclick="kirim()">Kirim</button>
+    <p class="status" id="status"></p>
 </div>
-
-<div id="umurKue" style="font-size:32px; margin-top:20px;"></div>
 
 <script>
-// Hitung umur otomatis
-const birthday = new Date("2002-11-15");
-const today = new Date();
-let umur = today.getFullYear() - birthday.getFullYear();
-if (
-    today.getMonth() < birthday.getMonth() ||
-    (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate())
-) {
-    umur--;
+/* ===== Hitung Umur ===== */
+function hitungUmur() {
+    const lahir = new Date("2002-11-15");
+    const sekarang = new Date();
+    let umur = sekarang.getFullYear() - lahir.getFullYear();
+
+    // Jika belum ulang tahun bulan ini
+    const bulan = sekarang.getMonth() - lahir.getMonth();
+    if (bulan < 0 || (bulan === 0 && sekarang.getDate() < lahir.getDate())) {
+        umur--;
+    }
+
+    document.getElementById("umur").innerHTML = `🎂 ${umur} Tahun 🎉`;
 }
-document.getElementById("umurKue").innerHTML = `🎂 <b>${umur}</b> Tahun 🎂`;
-</script>
+hitungUmur();
 
-<hr style="margin:40px 0;">
+/* ===== Kirim Pesan ke GitHub ===== */
+function kirim() {
+    let pesan = document.getElementById("pesan").value.trim();
+    let status = document.getElementById("status");
 
-<h2>Kirim Harapan</h2>
-<input type="text" id="pesan" placeholder="Tulis harapan..." size="40">
-<button onclick="kirimPesan()">Kirim</button>
-
-<p id="status"></p>
-
-<script>
-// ============================================
-//  KIRIM PESAN KE GITHUB ACTIONS
-// ============================================
-async function kirimPesan() {
-    const pesan = document.getElementById("pesan").value;
-    if (!pesan) {
-        alert("Isi dulu pesannya!");
+    if (pesan === "") {
+        status.innerHTML = "Tulis pesan dulu.";
         return;
     }
 
-    document.getElementById("status").innerText = "Mengirim...";
+    status.innerHTML = "Mengirim...";
 
-    const url = "https://api.github.com/repos/adekanbara/HB/actions/workflows/kirim-pesan.yml/dispatches";
-
-    const data = {
-        ref: "main",
-        inputs: { pesan: pesan }
-    };
-
-    const response = await fetch(url, {
+    fetch("https://api.github.com/repos/adekanbara/HB/dispatches", {
         method: "POST",
-        headers: { "Accept": "application/vnd.github+json" },
-        body: JSON.stringify(data)
+        headers: {
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer YOUR_SECRET_HERE" 
+        },
+        body: JSON.stringify({
+            event_type: "kirim_pesan",
+            client_payload: { pesan: pesan }
+        })
+    })
+    .then(res => {
+        if (res.status === 204) {
+            status.style.color = "green";
+            status.innerHTML = "Pesan terkirim!";
+            document.getElementById("pesan").value = "";
+        } else {
+            status.innerHTML = "Gagal mengirim.";
+        }
     });
-
-    if (response.ok) {
-        document.getElementById("status").innerText = "Pesan berhasil dikirim!";
-        document.getElementById("pesan").value = "";
-    } else {
-        document.getElementById("status").innerText = "Gagal mengirim";
-    }
 }
-</script>
-
-<script>
-// ============================================
-//  HATI MELAYANG
-// ============================================
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-}, 500);
-
-// ============================================
-//  BUNGA JATUH
-// ============================================
-const flowers = ["🌸", "🌺", "🌼", "💮"];
-setInterval(() => {
-    const f = document.createElement("div");
-    f.className = "flower";
-    f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.fontSize = (Math.random() * 25 + 15) + "px";
-    document.body.appendChild(f);
-    setTimeout(() => f.remove(), 6000);
-}, 800);
 </script>
 
 </body>
