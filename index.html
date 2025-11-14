@@ -2,289 +2,310 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Kawaii</title>
+<title>Happy Birthday 💗</title>
 
-<!-- ===========================
-     BASE STYLE (kawaii theme)
-     =========================== -->
 <style>
+/* ====== GLOBAL ====== */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffe6f9, #ffecff, #ffe4f8);
+    margin: 0;
+    padding: 0;
     text-align: center;
-    padding: 25px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffd7f7, #ffe6ff);
+    overflow-x: hidden;
+    color: #ff1e8e;
 }
 
+/* ====== LOADING SCREEN ====== */
+#loadingScreen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: white;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 22px;
+    color: #ff3ca0;
+}
+#loadingScreen span {
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.35; }
+    100% { opacity: 1; }
+}
+
+/* ====== TITLE ====== */
 h1 {
-    color: #ff4fa8;
+    margin-top: 20px;
     font-size: 42px;
-    text-shadow: 0 0 10px #ffc1e5;
-    margin-bottom: 10px;
+    color: #ff2190;
+    text-shadow: 0 0 8px #ff9ed4;
 }
 
-.birthday-frame {
-    position: relative;
-    width: 290px;
-    height: 290px;
-    margin: 30px auto;
-    border: 6px solid #ff93d6;
-    border-radius: 25px;
-    padding: 10px;
-    background: linear-gradient(135deg, #ffdaf1, #ffd0f3);
-    box-shadow: 0 10px 30px rgba(255,120,170,0.4),
-                inset 0 0 20px rgba(255,180,220,0.6);
-    animation: glow 2s infinite alternate;
+/* ====== PHOTO FRAME ====== */
+.frame {
+    width: 280px;
+    padding: 12px;
+    margin: 20px auto;
+    background: #ffdef3;
+    border-radius: 20px;
+    box-shadow: 0 0 18px rgba(255,120,170,0.45);
+    border: 4px dashed #ff70b7;
 }
-
-@keyframes glow {
-    from { box-shadow: 0 10px 30px rgba(255,120,170,0.4); }
-    to   { box-shadow: 0 10px 40px rgba(255,150,200,0.7); }
-}
-
-.birthday-photo {
+.photo {
     width: 100%;
-    height: 100%;
+    border-radius: 15px;
     object-fit: cover;
-    border-radius: 18px;
 }
 
-/* umur */
-#umurBox {
-    margin-top: 5px;
-    font-size: 13px;
-    color: #b30069;
-    font-weight: bold;
-    opacity: 0.8;
-}
-
-/* ===========================
-   TEKS BERJALAN (no cut)
-   =========================== */
+/* ====== MARQUEE ====== */
 .marquee {
-    position: relative;
     overflow: hidden;
-    width: 100%;
+    white-space: nowrap;
     margin-top: 20px;
 }
 .marquee span {
     display: inline-block;
     padding-left: 100%;
-    font-size: 22px;
-    color: #ff2d9b;
-    font-weight: bold;
-    white-space: nowrap;
-    animation: marquee 12s linear infinite;
+    font-size: 20px;
+    animation: run 12s linear infinite;
 }
-@keyframes marquee {
-    0% { transform: translateX(0%); }
+@keyframes run {
+    0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
 }
 
-/* ===========================
-   LOADING SCREEN
-   =========================== */
-#loadingScreen {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: #ffe4f8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    z-index:9999;
-    font-family:'Poppins';
-}
-.loading-heart {
-    font-size:50px;
-    animation: heartbeat 1s infinite;
-}
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
+/* ====== AGE & COUNTDOWN ====== */
+#umurBox, #countdown {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #b30069;
 }
 
-/* ===========================
-   POPUP CARD
-   =========================== */
+/* ====== MUSIC BUTTON ====== */
+.music-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #ffb7e5;
+    padding: 10px 13px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff89c7;
+}
+
+/* ====== NEXT MESSAGE ====== */
+.msg-box {
+    margin-top: 20px;
+    background: #ffe0f7;
+    padding: 15px;
+    width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ff9ed4;
+}
+.next-btn {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: #ff6fb4;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* ====== POPUP CARD ====== */
 #popupCard {
     position: fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%) scale(0);
-    width: 80%;
-    max-width: 330px;
-    background: #fff0fa;
-    border-radius: 20px;
-    padding: 20px;
-    text-align:center;
-    box-shadow: 0 0 20px rgba(255,100,200,0.4);
-    font-family:'Poppins';
-    z-index: 9990;
-    transition: 0.4s ease;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 205, 235, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
 }
-#popupCard.show {
-    transform:translate(-50%, -50%) scale(1);
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 70%;
+    max-width: 300px;
+    box-shadow: 0 0 20px #ff80c8;
+    font-size: 20px;
 }
-#popupCard h2 {
-    color:#ff2d9b;
-}
-#closePopup {
-    margin-top:15px;
-    background:#ff7dc3;
-    border:none;
-    padding:8px 20px;
-    border-radius: 12px;
-    color:white;
-    cursor:pointer;
+.close-btn {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: #ff7bc5;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
-/* ===========================
-   PESAN NEXT/BACK
-   =========================== */
-#pesanArea {
-    font-size:24px;
-    color:#ff2d9b;
-    font-weight:bold;
-    margin-top:10px;
-    min-height:40px;
-    text-shadow:0 0 6px #ffc1e5;
+/* ====== SAKURA FALL ====== */
+.sakura {
+    position: fixed;
+    top: -10px;
+    width: 18px;
+    height: 18px;
+    background: pink;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(40px); opacity: 0; }
 }
 
-.nav-btn {
-    background:#ffabd9;
-    border:none;
-    padding:6px 12px;
-    margin: 0 5px;
-    border-radius:10px;
-    color:white;
-    cursor:pointer;
-    font-size:14px;
+/* ====== GLITTER ====== */
+.sparkle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkle 1.5s infinite;
 }
-.nav-btn:hover {
-    background:#ff8ccf;
+@keyframes sparkle {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(2); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
 }
 </style>
-
 </head>
+
 <body>
 
-<!-- Loading -->
+<!-- ===== LOADING SCREEN ===== -->
 <div id="loadingScreen">
-    <div class="loading-heart">💗</div>
-    <p style="color:#ff2d9b;font-weight:bold;">Loading...</p>
+    <span>Preparing birthday magic… ✨</span>
 </div>
 
-<h1>Happy Birthday 💗✨</h1>
+<!-- MUSIC -->
+<audio id="bgm" src="musik.mp3" autoplay loop></audio>
+<div class="music-btn" onclick="toggleMusic()">🎶</div>
 
-<!-- Foto -->
-<div class="birthday-frame">
-    <img src="foto.jpg" class="birthday-photo">
+<h1>Happy Birthday Neng 💗</h1>
+
+<!-- PHOTO FRAME -->
+<div class="frame">
+    <img src="foto.jpg" class="photo">
 </div>
 
-<div id="umurBox">menghitung umur…</div>
+<div id="umurBox">Menghitung umur…</div>
+<div id="countdown">Menghitung countdown…</div>
 
-<!-- Teks berjalan -->
 <div class="marquee">
     <span>semoga keinginan dan harapannya terkabul 💖</span>
 </div>
 
-<!-- Tombol popup -->
-<div style="font-size:55px; margin-top:25px; cursor:pointer;" onclick="openPopup()">💌</div>
-
-<!-- PESAN -->
-<div id="pesanArea"></div>
-<div style="margin-top:10px;">
-    <button class="nav-btn" onclick="prevMsg()">◀</button>
-    <button class="nav-btn" onclick="nextMsg()">▶</button>
+<!-- NEXT MESSAGE -->
+<div class="msg-box">
+    <div id="msgText">Waktu berubah…</div>
+    <button class="next-btn" onclick="nextMsg()">Next</button>
 </div>
 
-<!-- POPUP KARTU -->
+<!-- POPUP CARD -->
 <div id="popupCard">
-    <h2>🎀 Happy Birthday! 🎀</h2>
-    <p style="color:#b30069; font-weight:bold;">
-        Semoga hari ini membawa kebahagiaan,<br>
-        senyum manis, dan keberkahan.
-    </p>
-    <button id="closePopup">Tutup</button>
+    <div class="card">
+        🎁 Selamat Ulang Tahun 💗  
+        Semoga tahun ini lebih indah dari sebelumnya!
+        <br><br>
+        <button class="close-btn" onclick="closeCard()">Tutup</button>
+    </div>
 </div>
 
-<!-- ===========================
-     SCRIPT SEMUA FITUR
-     =========================== -->
 <script>
-/* Loading */
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        document.getElementById("loadingScreen").style.display = "none";
-    }, 1000);
-});
+/* ===== REMOVE LOADING ===== */
+setTimeout(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+}, 1500);
 
-/* Popup */
-function openPopup() {
-    document.getElementById("popupCard").classList.add("show");
+/* ===== MUSIC ===== */
+function toggleMusic() {
+    let bgm = document.getElementById("bgm");
+    if (bgm.paused) bgm.play();
+    else bgm.pause();
 }
-document.getElementById("closePopup").onclick = function() {
-    document.getElementById("popupCard").classList.remove("show");
-};
 
-/* Pesan Next/Back */
-const pesanList = [
-    "⏳ Waktu berubah",
-    "🎂 Umur bertambah",
-    "💘 Perasaan tertinggal",
-    "💖 Namun kenangan tetap tersimpan",
-    "🌸 Semoga hatimu selalu bahagia"
-];
-let indexPesan = 0;
-function tampilkanPesan() {
-    document.getElementById("pesanArea").innerHTML = pesanList[indexPesan];
-}
-function nextMsg() {
-    indexPesan = (indexPesan + 1) % pesanList.length;
-    tampilkanPesan();
-}
-function prevMsg() {
-    indexPesan = (indexPesan - 1 + pesanList.length) % pesanList.length;
-    tampilkanPesan();
-}
-tampilkanPesan();
-
-/* Hitung Umur (WIB) */
-function hitungUmur() {
+/* ===== AGE SIMPLE ===== */
+function updateAge() {
     const lahir = new Date("2002-11-15T00:00:00+07:00");
-    const now = new Date(Date.now() + (7 * 3600 * 1000));
-
-    let delta = (now - lahir) / 1000;
-
-    const tahun  = Math.floor(delta / (3600*24*365));
-    delta -= tahun * 3600*24*365;
-
-    const bulan  = Math.floor(delta / (3600*24*30));
-    delta -= bulan * 3600*24*30;
-
-    const minggu = Math.floor(delta / (3600*24*7));
-    delta -= minggu * 3600*24*7;
-
-    const hari   = Math.floor(delta / (3600*24));
-    delta -= hari * 3600*24;
-
-    const jam    = Math.floor(delta / 3600);
-    delta -= jam * 3600;
-
-    const menit  = Math.floor(delta / 60);
-    delta -= menit * 60;
-
-    const detik  = Math.floor(delta);
-
+    const now = new Date(Date.now() + 7*3600*1000);
+    let detik = Math.floor((now - lahir) / 1000);
     document.getElementById("umurBox").innerHTML =
-        `Umur: ${tahun} thn ${bulan} bln ${minggu} mgg 
-        ${hari} hr ${jam} j ${menit} m ${detik} dtk (WIB)`;
+        "Umur: " + Math.floor(detik / (3600*24*365)) +
+        " Tahun — berjalan " + detik.toLocaleString() + " detik";
+}
+setInterval(updateAge, 1000);
+
+/* ===== COUNTDOWN ===== */
+function cd() {
+    const now = new Date(Date.now() + 7*3600*1000);
+    let y = now.getFullYear();
+    let target = new Date(`${y}-11-15T00:00:00+07:00`);
+    if (now > target) target = new Date(`${y+1}-11-15T00:00:00+07:00`);
+
+    let s = Math.floor((target - now)/1000);
+    let h = Math.floor(s/86400);
+    let j = Math.floor((s%86400)/3600);
+    let m = Math.floor((s%3600)/60);
+    let d = s%60;
+
+    document.getElementById("countdown").innerHTML =
+        `Countdown ulang tahun: ${h} hari ${j} jam ${m} menit ${d} detik`;
+}
+setInterval(cd, 1000);
+
+/* ===== NEXT MESSAGE ===== */
+const pesan = [
+    "Waktu berubah…",
+    "Umur bertambah…",
+    "Perasaan tertinggal…",
+    "Namun kenangan tetap indah 💗"
+];
+let i = 0;
+function nextMsg() {
+    i = (i + 1) % pesan.length;
+    document.getElementById("msgText").innerHTML = pesan[i];
 }
 
-setInterval(hitungUmur, 1000);
-hitungUmur();
+/* ===== POPUP AUTO ===== */
+setTimeout(() => {
+    document.getElementById("popupCard").style.display = "flex";
+}, 2500);
+function closeCard() {
+    document.getElementById("popupCard").style.display = "none";
+}
+
+/* ===== SAKURA ===== */
+setInterval(() => {
+    let s = document.createElement("div");
+    s.className = "sakura";
+    s.style.left = Math.random()*100 + "vw";
+    s.style.animationDuration = 5 + Math.random()*5 + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 10000);
+}, 400);
+
+/* ===== GLITTER ===== */
+setInterval(() => {
+    let sp = document.createElement("div");
+    sp.className = "sparkle";
+    sp.style.left = Math.random()*100 + "vw";
+    sp.style.top = Math.random()*100 + "vh";
+    document.body.appendChild(sp);
+    setTimeout(() => sp.remove(), 1500);
+}, 250);
 </script>
 
 </body>
