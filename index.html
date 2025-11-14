@@ -1,153 +1,293 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Birthday Page</title>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Birthday — Kawaii Full Effects</title>
 <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ffe6f4, #ffeaff, #ffddf4);
-        text-align: center;
-        padding: 30px;
-    }
+  :root{
+    --bg1:#fff0f6;
+    --bg2:#fff6fb;
+    --pink:#ff4fa8;
+    --accent:#ff89c9;
+    --muted:#5a3850;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Poppins";
+    background: radial-gradient(circle at 10% 10%, #fff8fb 0%, #fff0f6 25%, #ffe6f9 100%);
+    color:var(--muted);
+    text-align:center;
+    overflow-x:hidden;
+    min-height:100vh;
+    padding:28px 12px 60px;
+  }
 
-    h1 {
-        color: hotpink;
-        font-size: 40px;
-        margin-bottom: 10px;
-    }
+  header{margin-bottom:8px}
+  h1{
+    margin:10px 0 6px;
+    color:var(--pink);
+    font-size:38px;
+    text-shadow:0 6px 18px rgba(255,74,154,0.12);
+  }
+  .sub{font-size:14px; color:#b14a84; margin-bottom:6px}
 
-    /* Foto + Bingkai */
-    .birthday-frame {
-        position: relative;
-        width: 280px;
-        height: 280px;
-        margin: 30px auto;
-        border: 6px solid #ff80c8;
-        border-radius: 20px;
-        padding: 10px;
-        background: linear-gradient(135deg, #ffe6f4, #ffd2eb);
-        box-shadow: 0 8px 25px rgba(255, 120, 170, 0.4),
-                    inset 0 0 20px rgba(255, 150, 200, 0.5);
-    }
+  /* FRAME */
+  .birthday-frame{
+    position:relative;
+    width:320px;
+    height:320px;
+    margin:18px auto;
+    border-radius:22px;
+    padding:10px;
+    background: linear-gradient(180deg,#fff7fb,#ffe8f6);
+    border:5px solid #ffd1eb;
+    box-shadow: 0 12px 35px rgba(255,120,170,0.15);
+    overflow:hidden;
+  }
+  .photo{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:14px;
+  }
 
-    .birthday-frame::before {
-        content: "🎀 Happy Birthday 🎀";
-        position: absolute;
-        top: -32px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #ffb3dd;
-        padding: 4px 14px;
-        border-radius: 12px;
-        font-weight: bold;
-        color: #b30069;
-        font-size: 15px;
-        box-shadow: 0 2px 6px rgba(255, 100, 170, 0.4);
-    }
+  /* Cake + countdown */
+  .cake-wrapper{
+    position: absolute;
+    right:12px; top:12px;
+    background: rgba(255,255,255,0.7);
+    padding:6px 10px; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    color:var(--pink);
+    font-weight:700;
+    min-width:90px;
+    text-align:right;
+  }
+  .cake-icon{font-size:19px}
+  .age-small{
+    font-size:14px; color:#8e2a61;
+    line-height:1.2;
+  }
+  #nextAgeCountdown { font-size:11px; color:#b14578; }
 
-    .birthday-frame::after {
-        content: "🎂 🎉 💕";
-        position: absolute;
-        bottom: -32px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #ffb3dd;
-        padding: 4px 14px;
-        border-radius: 12px;
-        font-weight: bold;
-        color: #b30069;
-        font-size: 16px;
-        box-shadow: 0 2px 6px rgba(255, 100, 170, 0.4);
-    }
+  /* MARQUEE */
+  .marquee{
+    margin-top:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    font-size:18px;
+    color:#b12f76;
+    font-weight:700;
+    animation: runtext 14s linear infinite;
+  }
+  @keyframes runtext{
+    from{transform:translateX(100%)}
+    to{transform:translateX(-100%)}
+  }
 
-    .birthday-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 14px;
-        display: block;
-    }
+  .controls{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .icon-btn{
+    width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(180deg,#ff8fc7,#ff4fa8);
+    color:white;font-size:28px;border:none;cursor:pointer;
+    box-shadow:0 10px 30px rgba(255,80,140,0.18);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .small-btn{
+    background:#fff; color:var(--pink); padding:10px 12px;
+    border-radius:12px; border:1px solid #ffd6ea; font-weight:700;
+    cursor:pointer;
+  }
 
-    /* Teks berjalan */
-    .marquee {
-        margin-top: 20px;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        box-sizing: border-box;
-        font-size: 22px;
-        color: #b30069;
-        font-weight: bold;
-        animation: slide 12s linear infinite;
-    }
+  #pesanArea{margin-top:18px; font-size:22px; color:var(--pink); font-weight:800;}
 
-    @keyframes slide {
-        from { transform: translateX(100%); }
-        to   { transform: translateX(-100%); }
-    }
+  .effects-layer{
+    position:fixed; inset:0;
+    pointer-events:none; z-index:50;
+  }
 
-    /* Tombol Pesan */
-    .msg-btn {
-        margin-top: 30px;
-        font-size: 50px;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
+  .heart{position:absolute}
+  .petal{position:absolute}
+  .sparkle{position:absolute}
+  .balloon{position:absolute}
 
-    .msg-btn:hover {
-        transform: scale(1.2);
-    }
-
-    #pesanArea {
-        margin-top: 20px;
-        font-size: 22px;
-        color: #b30069;
-        font-weight: bold;
-        min-height: 40px;
-    }
+  @media(max-width:420px){
+    .birthday-frame{width:88vw;height:88vw}
+  }
 </style>
-
 </head>
+
 <body>
 
-<h1>Happy Birthday 💖</h1>
+<header>
+  <h1 id="bigAge">Menghitung…</h1>
+  <div class="sub">Semoga hari ini spesial ✨</div>
+</header>
 
-<!-- Foto -->
 <div class="birthday-frame">
-    <img src="foto.jpg" class="birthday-photo">
+  <img src="foto.jpg" class="photo">
+  <div class="cake-wrapper">
+    <span class="cake-icon">🎂</span>
+    <div class="age-small" id="tinyAge">...</div>
+    <div id="nextAgeCountdown">...</div>
+  </div>
 </div>
 
-<!-- Teks berjalan -->
-<div class="marquee">semoga keinginan dan harapannya terkabul</div>
+<div class="marquee">semoga keinginan dan harapannya terkabul ✨</div>
 
-<!-- Simbol pesan -->
-<div class="msg-btn" onclick="tampilPesan()">💌</div>
+<div class="controls">
+  <button class="icon-btn" id="msgBtn">💌</button>
+  <button class="small-btn" id="musicToggle">⏯ Musik</button>
+</div>
 
 <div id="pesanArea"></div>
 
+<div class="effects-layer" id="effects"></div>
+
+<audio id="bgMusic" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-let tahap = 0;
+/* ===============================
+   SIMPLE AGE (ONLY YEARS)
+   + COUNTDOWN TO NEXT BIRTHDAY
+   =============================== */
+(function(){
+  const birth = new Date("2002-11-15T00:00:00+07:00");
+  const h1Age = document.getElementById("bigAge");
+  const smallAge = document.getElementById("tinyAge");
+  const cdText = document.getElementById("nextAgeCountdown");
 
-function tampilPesan() {
-    const pesanBox = document.getElementById("pesanArea");
+  function updateAge(){
+    const now = new Date();
 
-    if (tahap === 0) {
-        pesanBox.innerHTML = "⏳ Waktu berubah";
-        tahap = 1;
-    } else if (tahap === 1) {
-        pesanBox.innerHTML = "🎂 Umur bertambah";
-        tahap = 2;
-    } else if (tahap === 2) {
-        pesanBox.innerHTML = "💘 Perasaan tertinggal";
-        tahap = 3;
-    } else {
-        pesanBox.innerHTML = "";
-        tahap = 0;
-    }
-}
+    // hitung umur sekarang (tahun saja)
+    let age = now.getFullYear() - birth.getFullYear();
+    const hasHadBirthday =
+      now.getMonth() > birth.getMonth() ||
+      (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
+
+    if(!hasHadBirthday) age -= 1;
+
+    // tampilkan H1 umur
+    h1Age.textContent = age + " Tahun";
+
+    // tampilkan umur kecil (contoh: "22 tahun")
+    smallAge.textContent = age + " thn";
+
+    // target ulang tahun berikutnya
+    const next = new Date(now.getFullYear(), 10, 15, 0,0,0); // 15 Nov
+    if(hasHadBirthday) next.setFullYear(now.getFullYear()+1);
+
+    const diff = next - now;
+
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const s = Math.floor((diff % (1000*60)) / 1000);
+
+    cdText.textContent =
+      `Menuju ${age+1} thn: ${d}h ${h}j ${m}m ${s}d`;
+  }
+
+  updateAge();
+  setInterval(updateAge, 1000);
+})();
+
+/* ===============================
+   MESSAGE BUTTON
+   =============================== */
+const msgs = ["Waktu berubah…", "Umur bertambah…", "Perasaan tertinggal…"];
+let mi=0;
+document.getElementById("msgBtn").onclick = () => {
+  document.getElementById("pesanArea").textContent = msgs[mi];
+  mi = (mi+1) % msgs.length;
+};
+
+/* ===============================
+   MUSIC
+   =============================== */
+const bg = document.getElementById("bgMusic");
+document.getElementById("musicToggle").onclick = ()=>{
+  if(bg.paused) bg.play(); else bg.pause();
+};
+
+/* ===============================
+   EFFECTS (semua tetap sama)
+   =============================== */
+const effects = document.getElementById("effects");
+
+/* sakura */
+setInterval(()=>{
+  const p = document.createElement("div");
+  p.className="petal";
+  p.textContent="🌸";
+  p.style.left=Math.random()*100+"%";
+  p.style.top="-5%";
+  p.style.fontSize= (16+Math.random()*12)+"px";
+  effects.appendChild(p);
+  const dur=5000+Math.random()*3000;
+  p.animate([
+    {transform:"translateY(0) rotate(0deg)", opacity:1},
+    {transform:`translateY(110vh) rotate(${200+Math.random()*300}deg)`, opacity:0}
+  ],{duration:dur, easing:"linear"});
+  setTimeout(()=>p.remove(), dur);
+},700);
+
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="💗";
+  h.style.left=Math.random()*100+"%";
+  h.style.top="-5%";
+  effects.appendChild(h);
+  const dur=3500+Math.random()*2500;
+  h.animate([
+    {transform:"translateY(0)",opacity:1},
+    {transform:"translateY(100vh)",opacity:0}
+  ],{duration:dur, easing:"linear"});
+  setTimeout(()=>h.remove(), dur);
+},500);
+
+/* sparkle */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.textContent="✨";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.fontSize= (10+Math.random()*10)+"px";
+  effects.appendChild(s);
+  const dur=1500;
+  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:dur});
+  setTimeout(()=>s.remove(), dur);
+},220);
+
+/* balloons */
+setInterval(()=>{
+  const b=document.createElement("div");
+  b.className="balloon";
+  b.textContent="🎈";
+  b.style.left=Math.random()*100+"%";
+  b.style.bottom="-10%";
+  effects.appendChild(b);
+  const dur=5000+Math.random()*3000;
+  b.animate([
+    {transform:"translateY(0)",opacity:1},
+    {transform:"translateY(-120vh)",opacity:0}
+  ],{duration:dur});
+  setTimeout(()=>b.remove(), dur);
+},1200);
+
 </script>
-
 </body>
 </html>
