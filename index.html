@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday</title>
+
+<style>
+/* ============================
+   STYLE UMUM
+============================ */
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffb6c1, #ffe6f2, #ffd1dc);
+    overflow-x: hidden;
+}
+
+/* ============================
+   BINGKAI FOTO
+============================ */
+.foto-wrapper {
+    display: inline-block;
+    padding: 20px;
+    border: 12px solid transparent;
+    border-image: url('bingkai-bunga.png') 30 round;
+    margin-top: 30px;
+}
+.foto-wrapper img {
+    width: 250px;
+    border-radius: 12px;
+}
+
+/* ============================
+   TEKS HAPPY BIRTHDAY
+============================ */
+h1 {
+    font-size: 60px;
+    color: pink;
+    text-shadow: 0 0 10px white, 0 0 20px pink;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px white, 0 0 10px pink; }
+    to   { text-shadow: 0 0 20px white, 0 0 40px hotpink; }
+}
+
+/* ============================
+   TEKS BERJALAN
+============================ */
+.marquee {
+    margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+.marquee span {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    animation: jalan 10s linear infinite;
+}
+@keyframes jalan {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(-100%); }
+}
+
+/* ============================
+   FORM PESAN
+============================ */
+input, button {
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+button {
+    background: hotpink;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover {
+    background: deeppink;
+}
+
+/* ============================
+   EFEK HATI MELAYANG
+============================ */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    color: rgba(255,0,102,0.8);
+    font-size: 20px;
+    animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
+}
+
+/* ============================
+   EFEK GLITTER
+============================ */
+.glitter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url('https://i.imgur.com/5M0SxN8.png');
+    opacity: 0.25;
+    animation: glitterMove 20s linear infinite;
+}
+
+@keyframes glitterMove {
+    from { background-position: 0 0; }
+    to   { background-position: 1000px 1000px; }
+}
+
+/* ============================
+   BUNGA JATUH
+============================ */
+.flower {
+    position: fixed;
+    top: -50px;
+    font-size: 20px;
+    animation: jatuh 6s linear infinite;
+}
+
+@keyframes jatuh {
+    from { transform: translateY(0) rotate(0deg); }
+    to   { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<audio src="musik.mp3" autoplay loop></audio>
+
+<div class="glitter"></div>
+
+<div class="foto-wrapper">
+    <img src="foto.jpg" alt="Foto">
+</div>
+
+<h1>Happy Birthday!</h1>
+
+<div class="marquee">
+    <span>Semoga keinginan dan harapannya terkabul</span>
+</div>
+
+<div id="umurKue" style="font-size:32px; margin-top:20px;"></div>
+
+<script>
+// Hitung umur otomatis
+const birthday = new Date("2002-11-15");
+const today = new Date();
+let umur = today.getFullYear() - birthday.getFullYear();
+if (
+    today.getMonth() < birthday.getMonth() ||
+    (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate())
+) {
+    umur--;
+}
+document.getElementById("umurKue").innerHTML = `🎂 <b>${umur}</b> Tahun 🎂`;
+</script>
+
+<hr style="margin:40px 0;">
+
+<h2>Kirim Harapan</h2>
+<input type="text" id="pesan" placeholder="Tulis harapan..." size="40">
+<button onclick="kirimPesan()">Kirim</button>
+
+<p id="status"></p>
+
+<script>
+// ============================================
+//  KIRIM PESAN KE GITHUB ACTIONS
+// ============================================
+async function kirimPesan() {
+    const pesan = document.getElementById("pesan").value;
+    if (!pesan) {
+        alert("Isi dulu pesannya!");
+        return;
+    }
+
+    document.getElementById("status").innerText = "Mengirim...";
+
+    const url = "https://api.github.com/repos/adekanbara/HB/actions/workflows/kirim-pesan.yml/dispatches";
+
+    const data = {
+        ref: "main",
+        inputs: { pesan: pesan }
+    };
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: { "Accept": "application/vnd.github+json" },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        document.getElementById("status").innerText = "Pesan berhasil dikirim!";
+        document.getElementById("pesan").value = "";
+    } else {
+        document.getElementById("status").innerText = "Gagal mengirim";
+    }
+}
+</script>
+
+<script>
+// ============================================
+//  HATI MELAYANG
+// ============================================
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}, 500);
+
+// ============================================
+//  BUNGA JATUH
+// ============================================
+const flowers = ["🌸", "🌺", "🌼", "💮"];
+setInterval(() => {
+    const f = document.createElement("div");
+    f.className = "flower";
+    f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.fontSize = (Math.random() * 25 + 15) + "px";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 6000);
+}, 800);
+</script>
+
+</body>
+</html>
