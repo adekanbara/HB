@@ -56,7 +56,7 @@ h1{
   border-radius:14px;
 }
 
-/* Cake + countdown */
+/* Cake */
 .cake-wrapper{
   position:absolute;
   right:12px; top:12px;
@@ -73,7 +73,6 @@ h1{
   font-size:14px; color:#8e2a61;
   line-height:1.2;
 }
-#nextAgeCountdown { font-size:11px; color:#b14578; }
 
 /* Countdown kecil H1 */
 #smallCountdown{
@@ -145,7 +144,7 @@ h1{
 
 <header>
   <h1 id="bigAge">Menghitung…</h1>
-  <div id="smallCountdown">🎂 0d 0h 0m 0s menuju ulang tahun 🎂</div>
+  <div id="smallCountdown">0d 0h 0m 0s menuju ulang tahun</div>
   <div class="sub">Happy Birthday 🎈 Neng ♥️✨</div>
 </header>
 
@@ -154,8 +153,7 @@ h1{
   <div class="cake-wrapper">
     <span class="cake-icon">🎂</span>
     <div class="age-small" id="tinyAge">...</div>
-    <div id="nextAgeCountdown">...</div>
-</div>
+  </div>
 </div>
 
 <div class="marquee-wrapper">
@@ -181,7 +179,6 @@ h1{
   const birth = new Date("2002-11-15T00:00:00+07:00");
   const h1Age = document.getElementById("bigAge");
   const smallAge = document.getElementById("tinyAge");
-  const cdText = document.getElementById("nextAgeCountdown");
   const smallCountdown = document.getElementById("smallCountdown");
 
   function updateAge(){
@@ -191,7 +188,8 @@ h1{
       (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
     if(!hasHadBirthday) age -= 1;
 
-    h1Age.textContent = age + " Tahun";
+    // 🎂 hanya di H1
+    h1Age.textContent = age + " Tahun 🎂";
     smallAge.textContent = age + " thn";
 
     let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
@@ -202,8 +200,8 @@ h1{
     const m = Math.floor((diff % (1000*60*60)) / (1000*60));
     const s = Math.floor((diff % (1000*60)) / 1000);
 
-    cdText.textContent = `Menuju ${age+1} thn: ${d} hari ${h} jam ${m} menit ${s} detik`;
-    smallCountdown.textContent = `🎂 ${d}d ${h}h ${m}m ${s}s menuju ulang tahun ke-${age+1} 🎂`;
+    // Countdown kecil tanpa simbol
+    smallCountdown.textContent = `${d}d ${h}h ${m}m ${s}s menuju ulang tahun ke-${age+1}`;
   }
 
   updateAge();
@@ -227,7 +225,6 @@ document.getElementById("msgBtn").onclick = ()=>{
       (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
   if(!hasHadBirthday) age -= 1;
 
-  // BACKDROP
   const backdrop = document.createElement("div");
   backdrop.style.position="fixed";
   backdrop.style.inset="0";
