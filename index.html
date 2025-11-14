@@ -205,6 +205,7 @@ const msgs = [
   "Semoga selalu bahagia dan sehat! 💖"
 ];
 let mi = 0;
+
 document.getElementById("msgBtn").onclick = ()=>{
   const birth = new Date("2002-11-15T00:00:00+07:00");
   const now = new Date();
@@ -212,6 +213,17 @@ document.getElementById("msgBtn").onclick = ()=>{
   const hasHadBirthday = now.getMonth() > birth.getMonth() || 
       (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
   if(!hasHadBirthday) age -= 1;
+
+  // BACKDROP
+  const backdrop = document.createElement("div");
+  backdrop.style.position="fixed";
+  backdrop.style.inset="0";
+  backdrop.style.background="rgba(0,0,0,0.25)";
+  backdrop.style.zIndex=199;
+  backdrop.style.opacity="0";
+  backdrop.style.transition="opacity 0.3s";
+  document.body.appendChild(backdrop);
+  setTimeout(()=>backdrop.style.opacity="1",50);
 
   const popup = document.createElement("div");
   popup.style.position="fixed";
@@ -232,22 +244,59 @@ document.getElementById("msgBtn").onclick = ()=>{
   if(pesanTeks.includes("Selamat ulang tahun")) 
       pesanTeks = `Selamat ulang tahun ke-${age}! 🎂🎈`;
 
-  popup.innerHTML=`
-    <p style="font-size:22px;color:#b12f76;margin:0;font-weight:700;">${pesanTeks}</p><br>
-    <button id="nextBtn" style="padding:10px 14px;border-radius:12px;border:none;background:#ff4fa8;color:white;font-weight:bold;cursor:pointer;margin-right:8px;">Next</button>
-    <button id="closeBtn" style="padding:10px 14px;border-radius:12px;border:none;background:#ccc;color:#555;font-weight:bold;cursor:pointer;">Close</button>
+  popup.innerHTML = `
+    <button id="closeBtn" style="
+      position:absolute;
+      top:12px;
+      right:12px;
+      background:none;
+      border:none;
+      font-size:24px;
+      font-weight:bold;
+      cursor:pointer;
+      color:#b12f76;
+      transition: color 0.2s;
+    ">×</button>
+    <p style="
+      font-size:22px;
+      color:#b12f76;
+      margin:0 0 16px 0;
+      font-weight:700;
+    ">${pesanTeks}</p>
+    <button id="nextBtn" style="
+      padding:10px 16px;
+      border-radius:12px;
+      border:none;
+      background:#ff4fa8;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition: background 0.2s;
+    ">Next</button>
   `;
   document.body.appendChild(popup);
 
-  document.getElementById("nextBtn").onclick=()=>{
-    mi=(mi+1)%msgs.length;
-    popup.remove();
-    document.getElementById("msgBtn").click();
-  };
-  document.getElementById("closeBtn").onclick=()=>{
+  const closePopup = ()=>{
     popup.style.transform="translate(-50%, -50%) scale(0)";
-    setTimeout(()=>popup.remove(),400);
+    backdrop.style.opacity="0";
+    setTimeout(()=>{
+      popup.remove();
+      backdrop.remove();
+    },400);
   };
+
+  document.getElementById("closeBtn").onclick = closePopup;
+  document.getElementById("closeBtn").onmouseover = ()=>document.getElementById("closeBtn").style.color = "#ff4fa8";
+  document.getElementById("closeBtn").onmouseout = ()=>document.getElementById("closeBtn").style.color = "#b12f76";
+  document.getElementById("nextBtn").onclick = ()=>{
+    mi=(mi+1)%msgs.length;
+    closePopup();
+    setTimeout(()=>document.getElementById("msgBtn").click(),400);
+  };
+  document.getElementById("nextBtn").onmouseover = ()=>document.getElementById("nextBtn").style.background = "#ff89c9";
+  document.getElementById("nextBtn").onmouseout = ()=>document.getElementById("nextBtn").style.background = "#ff4fa8";
+
+  backdrop.onclick = closePopup;
 };
 
 // ===================== MUSIC =====================
@@ -304,21 +353,23 @@ setInterval(()=>{
   setTimeout(()=>fb.remove(),dur);
 },800);
 
-// ===================== DOLL BUTTON =====================
+// ===================== DOLL BUTTON (2x size) =====================
 document.getElementById("dollBtn").onclick = ()=>{
   const doll=document.createElement("div");
-  doll.className="doll"; doll.textContent="🧸";
+  doll.className="doll"; 
+  doll.textContent="🧸";
   doll.style.position="fixed";
   doll.style.left="50%";
   doll.style.top="50%";
   doll.style.transform="translate(-50%,-50%) scale(0)";
-  doll.style.fontSize="100px";
+  doll.style.fontSize="200px"; // 2x lipat
   doll.style.zIndex=150;
   doll.style.transition="transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),opacity 0.5s";
   effects.appendChild(doll);
   setTimeout(()=>doll.style.transform="translate(-50%,-50%) scale(1.2)",50);
   setTimeout(()=>{
-    doll.style.transform="translate(-50%,-50%) scale(0)"; doll.style.opacity="0";
+    doll.style.transform="translate(-50%,-50%) scale(0)"; 
+    doll.style.opacity="0";
     setTimeout(()=>doll.remove(),600);
   },2000);
 };
