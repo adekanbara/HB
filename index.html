@@ -1,195 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday 🎉</title>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ffd6e8, #ffe6f2);
-        color: #4d3a44;
-        text-align: center;
-        padding: 20px;
-        overflow-x: hidden;
-    }
+  :root{
+    --pink:#ff4fa3;
+    --soft:#ffdcec;
+    --text:#4d3a44;
+  }
+  body{
+    margin:0;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    background: linear-gradient(135deg,#ffe6f2,#fff0f6);
+    color:var(--text);
+    text-align:center;
+    padding:20px;
+    -webkit-font-smoothing:antialiased;
+  }
 
-    /* Background hearts */
-    .hearts {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: -1;
-        background-image: url('https://i.imgur.com/fqMvj6m.png');
-        opacity: 0.25;
-    }
+  /* Container foto + bingkai (posisi foto dulu, bingkai setelah di DOM) */
+  .photo-wrap{
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 26px auto 8px auto;
+  }
 
-    /* BINGKAI FOTO */
-    .photo-frame {
-        width: 260px;
-        padding: 12px;
-        margin: 0 auto;
-        border-radius: 20px;
-        background: #fff5fa;
-        box-shadow: 0 0 20px rgba(255, 120, 170, 0.3);
-        border: 4px solid #ffb6d9;
-        position: relative;
-    }
+  /* Foto tampil di bawah (z-index lower) */
+  .photo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
+    display:block;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    position:relative;
+    z-index:1;
+  }
 
-    .photo-frame img {
-        width: 100%;
-        border-radius: 15px;
-        display: block;
-    }
+  /* Bingkai ditempatkan setelah foto di DOM, ditata absolute menutupi foto */
+  .frame{
+    position:absolute;
+    left:0; top:0;
+    width:100%;
+    height:100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover; /* pastikan bingkai.png transparan area tengah */
+    pointer-events:none; /* agar bingkai tidak menghalangi klik */
+    z-index:2;
+    border-radius:18px;
+  }
 
-    /* Bingkai bunga di pojok foto */
-    .flower {
-        position: absolute;
-        width: 60px;
-    }
-    .flower.top-left { top: -25px; left: -25px; }
-    .flower.top-right { top: -25px; right: -25px; }
-    .flower.bottom-left { bottom: -25px; left: -25px; }
-    .flower.bottom-right { bottom: -25px; right: -25px; }
+  h1{
+    color:var(--pink);
+    font-size:34px;
+    margin:12px 0 4px;
+    text-shadow:0 4px 18px rgba(255,80,140,0.15);
+  }
 
-    /* Judul */
-    h1 {
-        font-size: 40px;
-        color: #ff4fa3;
-        text-shadow: 0 2px 10px rgba(255, 100, 150, 0.4);
-        margin-top: 25px;
-        margin-bottom: 3px;
-    }
+  .marquee{
+    margin-top:8px;
+    font-weight:600;
+    color:#b3346b;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee span{
+    display:inline-block;
+    padding-left:100%;
+    animation: slide 10s linear infinite;
+  }
+  @keyframes slide{
+    to{ transform:translateX(-100%); }
+  }
 
-    /* Running Text */
-    .marquee {
-        margin-top: 10px;
-        overflow: hidden;
-        white-space: nowrap;
-        animation: slide 12s linear infinite;
-        font-size: 18px;
-        color: #b3306d;
-        font-weight: bold;
-    }
-    @keyframes slide {
-        from { transform: translateX(100%); }
-        to { transform: translateX(-100%); }
-    }
+  .age{
+    margin-top:12px;
+    font-weight:700;
+    color:#ff2b95;
+    font-size:20px;
+  }
 
-    /* Usia + ikon kue */
-    .age-box {
-        margin-top: 15px;
-        font-size: 26px;
-        font-weight: bold;
-        color: #ff3e8a;
-    }
+  /* icon message */
+  .msg-btn{
+    margin-top:22px;
+    background:linear-gradient(180deg,var(--pink),#ff2b95);
+    border:none;
+    color:white;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    box-shadow:0 8px 20px rgba(255,80,140,0.18);
+    font-size:22px;
+    cursor:pointer;
+  }
 
-    /* Input pesan */
-    input {
-        padding: 12px;
-        width: 75%;
-        font-size: 16px;
-        border-radius: 12px;
-        border: 2px solid #ff9ac8;
-        outline: none;
-    }
+  /* dialog pesan sederhana */
+  .dialog {
+    position: fixed;
+    left:50%;
+    top:55%;
+    transform: translate(-50%,-50%);
+    width:88%;
+    max-width:420px;
+    background: white;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.18);
+    padding:18px;
+    display:none;
+    z-index:999;
+  }
+  .dialog h3{ margin:0 0 8px; color:var(--pink); }
+  .dialog p{ margin:0 0 14px; font-size:18px; color:#333; }
+  .dialog .actions{ text-align:right; }
+  .dialog .btn {
+    padding:8px 12px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+  }
+  .btn-next{ background:var(--pink); color:#fff; margin-left:8px; }
+  .btn-close{ background:#eee; color:#333; }
 
-    button {
-        padding: 12px 20px;
-        border: none;
-        background: #ff4fa3;
-        color: white;
-        font-size: 16px;
-        border-radius: 12px;
-        margin-top: 12px;
-        cursor: pointer;
-        box-shadow: 0 3px 10px rgba(255, 50, 150, 0.4);
-        transition: 0.2s;
-    }
+  /* footer small note */
+  .note{ margin-top:22px; color:#8a3b66; font-size:13px; opacity:0.9; }
 
-    button:hover {
-        background: #ff267a;
-        transform: scale(1.05);
-    }
-
-    /* Kotak pesan */
-    #pesan-container {
-        margin-top: 25px;
-        background: #ffffffcc;
-        padding: 15px;
-        border-radius: 12px;
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        max-height: 200px;
-        overflow-y: auto;
-        box-shadow: 0 0 10px rgba(255, 100, 150, 0.2);
-    }
-
-    .pesan {
-        padding: 10px;
-        background: #ffe3f1;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        text-align: left;
-    }
+  /* responsive */
+  @media (max-width:420px){
+    .photo-wrap{ width:220px; height:220px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="hearts"></div>
+  <!-- Musik (opsional) -->
+  <audio id="bgmusic" src="musik.mp3" autoplay loop></audio>
 
-<div class="photo-frame">
-    <img src="foto.jpg" alt="Foto Ulang Tahun">
+  <!-- Foto (foto dulu di DOM) -->
+  <div class="photo-wrap" aria-hidden="false">
+    <img src="foto.jpg" alt="Foto" class="photo">
+    <!-- Bingkai ditempatkan setelah foto -->
+    <div id="bingkai" class="frame" style="background-image: url('bingkai.png');"></div>
+  </div>
 
-    <!-- Bunga di setiap pojok -->
-    <img class="flower top-left" src="https://i.imgur.com/9QFJQyZ.png">
-    <img class="flower top-right" src="https://i.imgur.com/9QFJQyZ.png">
-    <img class="flower bottom-left" src="https://i.imgur.com/9QFJQyZ.png">
-    <img class="flower bottom-right" src="https://i.imgur.com/9QFJQyZ.png">
-</div>
+  <h1>Happy Birthday!</h1>
 
-<h1>Happy Birthday 🎉</h1>
+  <div class="marquee"><span>Semoga keinginan dan harapannya terkabul ✨</span></div>
 
-<div class="marquee">Semoga keinginan dan harapannya terkabul 💕</div>
+  <div class="age" id="age">...</div>
 
-<div class="age-box" id="usia"></div>
+  <!-- tombol simbol pesan -->
+  <button class="msg-btn" id="msgBtn" title="Buka Pesan">💬</button>
 
-<h2>Kirim Harapan</h2>
-<input type="text" id="inputPesan" placeholder="Tulis harapan..." />
-<br>
-<button onclick="tambahPesan()">Kirim</button>
+  <div class="note">Klik ikon pesan untuk melihat rangkaian pesan.</div>
 
-<div id="pesan-container"></div>
-
-<audio autoplay loop>
-    <source src="musik.mp3" type="audio/mpeg">
-</audio>
+  <!-- Dialog pesan -->
+  <div class="dialog" id="dialog">
+    <h3>Pesan</h3>
+    <p id="dialogText">...</p>
+    <div class="actions">
+      <button class="btn btn-close" id="closeBtn">Close</button>
+      <button class="btn btn-next" id="nextBtn">Next</button>
+    </div>
+  </div>
 
 <script>
-    function hitungUsia() {
-        let lahir = new Date("2002-11-15");
-        let sekarang = new Date();
-        let usia = sekarang.getFullYear() - lahir.getFullYear();
-        document.getElementById("usia").innerHTML = "🎂 " + usia + " Tahun 🎂";
+  // Hitung umur dari 15 Nov 2002
+  (function calcAge(){
+    const birth = new Date("2002-11-15");
+    const now = new Date();
+    let age = now.getFullYear() - birth.getFullYear();
+    const m = now.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) age--;
+    document.getElementById('age').textContent = '🎂 ' + age + ' Tahun';
+  })();
+
+  // Pesan sequence sesuai permintaan
+  const messages = ["waktu berubah", "umur bertambah", "perasaan tertinggal"];
+  let idx = 0;
+
+  const dialog = document.getElementById('dialog');
+  const dialogText = document.getElementById('dialogText');
+  const msgBtn = document.getElementById('msgBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const closeBtn = document.getElementById('closeBtn');
+
+  // buka dialog dan tampil pesan pertama
+  msgBtn.addEventListener('click', ()=> {
+    idx = 0;
+    dialogText.textContent = messages[idx];
+    dialog.style.display = 'block';
+    // jika hanya 1 pesan, ganti next jadi Close
+    nextBtn.textContent = (messages.length > 1) ? 'Next' : 'Close';
+  });
+
+  // next -> berikutnya
+  nextBtn.addEventListener('click', ()=> {
+    idx++;
+    if (idx < messages.length) {
+      dialogText.textContent = messages[idx];
+      // jika sudah pesan terakhir ubah next jadi Close
+      if (idx === messages.length - 1) nextBtn.textContent = 'Close';
+    } else {
+      // semua pesan sudah dilihat -> close dialog
+      dialog.style.display = 'none';
     }
-    hitungUsia();
+  });
 
-    function tambahPesan() {
-        let text = document.getElementById("inputPesan").value;
-        if (text.trim() === "") return;
+  // close button
+  closeBtn.addEventListener('click', ()=> {
+    dialog.style.display = 'none';
+  });
 
-        let box = document.createElement("div");
-        box.className = "pesan";
-        box.innerText = text;
+  // ESC key closes
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') dialog.style.display='none';
+  });
 
-        document.getElementById("pesan-container").appendChild(box);
-
-        document.getElementById("inputPesan").value = "";
-    }
+  // Jika bingkai.png tidak muncul, user akan lihat bingkai kosong.
+  // Pastikan file 'bingkai.png' ada di repo, nama persis (case-sensitive).
 </script>
 
 </body>
