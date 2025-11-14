@@ -1,401 +1,291 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Birthday — Neng </title>
+<meta charset="UTF-8">
+<title>Birthday Kawaii</title>
+
+<!-- ===========================
+     BASE STYLE (kawaii theme)
+     =========================== -->
 <style>
-  :root{
-    --bg1:#fff0f6;
-    --bg2:#fff6fb;
-    --pink:#ff4fa8;
-    --accent:#ff89c9;
-    --muted:#5a3850;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: radial-gradient(circle at 10% 10%, #fff8fb 0%, #fff0f6 25%, #ffe6f9 100%);
-    color:var(--muted);
-    text-align:center;
-    overflow-x:hidden;
-    min-height:100vh;
-    padding:28px 12px 60px;
-  }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe6f9, #ffecff, #ffe4f8);
+    text-align: center;
+    padding: 25px;
+}
 
-  /* Header */
-  header{margin-bottom:8px}
-  h1{
-    margin:10px 0 6px;
-    color:var(--pink);
-    font-size:36px;
-    text-shadow:0 6px 18px rgba(255,74,154,0.12);
-  }
-  .sub{font-size:14px; color:#b14a84; margin-bottom:6px}
+h1 {
+    color: #ff4fa8;
+    font-size: 42px;
+    text-shadow: 0 0 10px #ffc1e5;
+    margin-bottom: 10px;
+}
 
-  /* FRAME */
-  .birthday-frame{
-    position:relative;
-    width:320px;
-    height:320px;
-    margin:18px auto;
-    border-radius:22px;
-    padding:10px;
-    background: linear-gradient(180deg,#fff7fb,#ffe8f6);
-    border:5px solid #ffd1eb;
-    box-shadow: 0 12px 35px rgba(255,120,170,0.15);
-    overflow:hidden;
-  }
-  .birthday-frame::before{
-    content:"";
-    position:absolute; inset:0;
-    border-radius:22px;
-    pointer-events:none;
-    background: linear-gradient(45deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
-  }
-  .photo{
+.birthday-frame {
+    position: relative;
+    width: 290px;
+    height: 290px;
+    margin: 30px auto;
+    border: 6px solid #ff93d6;
+    border-radius: 25px;
+    padding: 10px;
+    background: linear-gradient(135deg, #ffdaf1, #ffd0f3);
+    box-shadow: 0 10px 30px rgba(255,120,170,0.4),
+                inset 0 0 20px rgba(255,180,220,0.6);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 10px 30px rgba(255,120,170,0.4); }
+    to   { box-shadow: 0 10px 40px rgba(255,150,200,0.7); }
+}
+
+.birthday-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* umur */
+#umurBox {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #b30069;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+/* ===========================
+   TEKS BERJALAN (no cut)
+   =========================== */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+}
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    font-size: 22px;
+    color: #ff2d9b;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: marquee 12s linear infinite;
+}
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* ===========================
+   LOADING SCREEN
+   =========================== */
+#loadingScreen {
+    position: fixed;
+    top:0; left:0;
     width:100%; height:100%;
-    object-fit:cover;
-    border-radius:14px;
-    display:block;
-  }
-
-  /* Cake icon + small age below cake */
-  .cake-wrapper{
-    position: absolute;
-    right:12px; top:12px;
-    display:flex; gap:8px; align-items:center;
-    background: rgba(255,255,255,0.7);
-    padding:6px 10px; border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.06);
-    font-weight:700; color:var(--pink);
-  }
-  .cake-icon{font-size:20px}
-  .age-small{
-    font-size:12px; color:#8e2a61;
-    text-align:right;
-    line-height:1;
-  }
-
-  /* MARQUEE */
-  .marquee{
-    margin-top:14px;
-    width:100%;
-    overflow:hidden;
-    white-space:nowrap;
-    box-sizing:border-box;
-    font-size:18px;
-    color:#b12f76;
-    font-weight:700;
-    animation: runtext 14s linear infinite;
-  }
-  @keyframes runtext{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
-
-  /* Pesan icon */
-  .controls{
-    margin-top:18px;
+    background: #ffe4f8;
     display:flex;
-    justify-content:center;
-    gap:18px;
     align-items:center;
-    flex-wrap:wrap;
-  }
-  .icon-btn{
-    width:64px;height:64px;border-radius:50%;
-    background:linear-gradient(180deg,#ff8fc7,#ff4fa8);
-    color:white;font-size:28px;border:none;cursor:pointer;
-    box-shadow:0 10px 30px rgba(255,80,140,0.18);display:inline-flex;
-    align-items:center;justify-content:center;
-    transition:transform .18s;
-  }
-  .icon-btn:active{transform:scale(.96)}
-  .small-btn{
-    background:#fff; color:var(--pink); padding:10px 12px; border-radius:12px; border:1px solid #ffd6ea; font-weight:700;
+    justify-content:center;
+    flex-direction:column;
+    z-index:9999;
+    font-family:'Poppins';
+}
+.loading-heart {
+    font-size:50px;
+    animation: heartbeat 1s infinite;
+}
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* ===========================
+   POPUP CARD
+   =========================== */
+#popupCard {
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) scale(0);
+    width: 80%;
+    max-width: 330px;
+    background: #fff0fa;
+    border-radius: 20px;
+    padding: 20px;
+    text-align:center;
+    box-shadow: 0 0 20px rgba(255,100,200,0.4);
+    font-family:'Poppins';
+    z-index: 9990;
+    transition: 0.4s ease;
+}
+#popupCard.show {
+    transform:translate(-50%, -50%) scale(1);
+}
+#popupCard h2 {
+    color:#ff2d9b;
+}
+#closePopup {
+    margin-top:15px;
+    background:#ff7dc3;
+    border:none;
+    padding:8px 20px;
+    border-radius: 12px;
+    color:white;
     cursor:pointer;
-  }
+}
 
-  /* Pesan area */
-  #pesanArea{margin-top:18px; font-size:22px; color:var(--pink); font-weight:800; min-height:36px; text-shadow:0 0 6px #ffd8ed}
+/* ===========================
+   PESAN NEXT/BACK
+   =========================== */
+#pesanArea {
+    font-size:24px;
+    color:#ff2d9b;
+    font-weight:bold;
+    margin-top:10px;
+    min-height:40px;
+    text-shadow:0 0 6px #ffc1e5;
+}
 
-  /* EFFECT CONTAINERS (absolute layers) */
-  .effects-layer{
-    position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:50;
-    overflow:hidden;
-  }
-
-  /* hearts, sakura, sparkle, balloons styles generated dynamically */
-  .heart{
-    position:absolute; font-size:18px; opacity:0.95; will-change:transform,opacity;
-    text-shadow:0 6px 18px rgba(255,80,140,0.12);
-  }
-  .petal{position:absolute; font-size:20px; opacity:0.95}
-  .sparkle{position:absolute; font-size:14px; opacity:0.9; filter:blur(.2px)}
-  .balloon{position:absolute; font-size:36px; transform-origin:center bottom; opacity:0.95}
-
-  /* small toggle panel bottom-right */
-  .toggle-panel{
-    position:fixed; right:12px; bottom:12px; z-index:120; display:flex; gap:8px; align-items:center;
-  }
-  .toggle-panel .toggler{background:#fff;padding:8px;border-radius:10px;border:1px solid #ffe0f0; cursor:pointer; font-weight:700; color:var(--pink)}
-
-  /* responsiveness */
-  @media (max-width:420px){
-    .birthday-frame{width:88vw;height:88vw}
-    .cake-wrapper{right:8px;top:8px}
-    .icon-btn{width:56px;height:56px}
-  }
+.nav-btn {
+    background:#ffabd9;
+    border:none;
+    padding:6px 12px;
+    margin: 0 5px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+}
+.nav-btn:hover {
+    background:#ff8ccf;
+}
 </style>
+
 </head>
 <body>
 
-<header>
-  <h1>Happy Birthday 💖</h1>
-  <div class="sub">Hari ini spesial bagi orang yang spesial juga✨</div>
-</header>
-
-<!-- Frame & Photo -->
-<div class="birthday-frame" role="img" aria-label="Foto ulang tahun">
-  <img src="foto.jpg" alt="Foto" class="photo" id="photoEl">
-  <div class="cake-wrapper" aria-hidden="true">
-    <span class="cake-icon">🎂</span>
-    <div class="age-small" id="tinyAge">menghitung…</div>
-  </div>
+<!-- Loading -->
+<div id="loadingScreen">
+    <div class="loading-heart">💗</div>
+    <p style="color:#ff2d9b;font-weight:bold;">Loading...</p>
 </div>
 
-<div class="marquee">semoga keinginan dan harapannya terkabul • make a wish ✨ •</div>
+<h1>Happy Birthday 💗✨</h1>
 
-<!-- controls: message icon, music toggle, effects toggle -->
-<div class="controls">
-  <button class="icon-btn" id="msgBtn" title="Buka Pesan">💌</button>
-  <button class="small-btn" id="musicToggle">⏯ Musik</button>
-  <button class="small-btn" id="pauseEffects">⏸ Efek</button>
+<!-- Foto -->
+<div class="birthday-frame">
+    <img src="foto.jpg" class="birthday-photo">
 </div>
 
-<div id="pesanArea" aria-live="polite"></div>
+<div id="umurBox">menghitung umur…</div>
 
-<!-- effects layer -->
-<div class="effects-layer" id="effects"></div>
-
-<!-- audio -->
-<audio id="bgMusic" loop>
-  <source src="musik.mp3" type="audio/mpeg">
-</audio>
-
-<!-- toggles -->
-<div class="toggle-panel">
-  <div class="toggler" id="toggleHearts">Hearts ✓</div>
-  <div class="toggler" id="toggleSpark">Sparkle ✓</div>
-  <div class="toggler" id="togglePetal">Sakura ✓</div>
-  <div class="toggler" id="toggleBall">Balloons ✓</div>
+<!-- Teks berjalan -->
+<div class="marquee">
+    <span>semoga keinginan dan harapannya terkabul 💖</span>
 </div>
 
+<!-- Tombol popup -->
+<div style="font-size:55px; margin-top:25px; cursor:pointer;" onclick="openPopup()">💌</div>
+
+<!-- PESAN -->
+<div id="pesanArea"></div>
+<div style="margin-top:10px;">
+    <button class="nav-btn" onclick="prevMsg()">◀</button>
+    <button class="nav-btn" onclick="nextMsg()">▶</button>
+</div>
+
+<!-- POPUP KARTU -->
+<div id="popupCard">
+    <h2>🎀 Happy Birthday! 🎀</h2>
+    <p style="color:#b30069; font-weight:bold;">
+        Semoga hari ini membawa kebahagiaan,<br>
+        senyum manis, dan keberkahan.
+    </p>
+    <button id="closePopup">Tutup</button>
+</div>
+
+<!-- ===========================
+     SCRIPT SEMUA FITUR
+     =========================== -->
 <script>
-/* ===========================
-   REAL-TIME AGE (detailed)
-   =========================== */
-(function ageRealtime(){
-  const birth = new Date("2002-11-15T00:00:00");
-  const tiny = document.getElementById('tinyAge');
-
-  function computeDetailed(birth, now){
-    // Years & months by comparing components
-    let y = now.getFullYear() - birth.getFullYear();
-    let m = now.getMonth() - birth.getMonth();
-    let d = now.getDate() - birth.getDate();
-    let hh = now.getHours() - birth.getHours();
-    let mm = now.getMinutes() - birth.getMinutes();
-    let ss = now.getSeconds() - birth.getSeconds();
-
-    if (ss < 0){ ss += 60; mm -= 1; }
-    if (mm < 0){ mm += 60; hh -= 1; }
-    if (hh < 0){ hh += 24; d -= 1; }
-
-    if (d < 0){
-      // borrow days from previous month
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-      d += prevMonth;
-      m -= 1;
-    }
-    if (m < 0){ m += 12; y -= 1; }
-
-    // weeks and remaining days
-    const weeks = Math.floor(d / 7);
-    const days = d % 7;
-
-    return {y,m,weeks,days,hh,mm,ss};
-  }
-
-  function update(){
-    const now = new Date();
-    const t = computeDetailed(birth, now);
-    tiny.textContent = `${t.y} thn ${t.m} bln ${t.weeks} mgg ${t.days} hr ${pad(t.hh)}:${pad(t.mm)}:${pad(t.ss)}`;
-  }
-
-  function pad(n){ return n.toString().padStart(2,'0'); }
-
-  update();
-  setInterval(update, 1000);
-})();
-
-/* ===========================
-   MESSAGE SEQUENCE (kawaii)
-   =========================== */
-const messages = ["⏳ Waktu berubah", "🎂 Umur bertambah", "💘 Perasaan tertinggal"];
-let msgStage = 0;
-const pesanArea = document.getElementById('pesanArea');
-document.getElementById('msgBtn').addEventListener('click', ()=>{
-  pesanArea.textContent = messages[msgStage] || "";
-  msgStage = (msgStage + 1) % (messages.length + 1);
-  // when cycles past last, clear and reset after short delay
-  if(msgStage === messages.length) {
-    // show last then next click will clear
-  }
+/* Loading */
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loadingScreen").style.display = "none";
+    }, 1000);
 });
 
-/* ===========================
-   MUSIC CONTROL
-   =========================== */
-const bgMusic = document.getElementById('bgMusic');
-const musicToggle = document.getElementById('musicToggle');
-let musicPlaying = false;
-musicToggle.addEventListener('click', ()=>{
-  if(!musicPlaying){ bgMusic.play().catch(()=>{}); musicToggle.textContent = '🔊 Musik'; }
-  else { bgMusic.pause(); musicToggle.textContent = '🔈 Musik'; }
-  musicPlaying = !musicPlaying;
-});
-
-/* ===========================
-   EFFECTS - hearts, sparkle, petals, balloons
-   All active simultaneously (mode A).
-   Limited counts to prevent slowdown.
-   =========================== */
-const effectsEl = document.getElementById('effects');
-let effectsPaused = false;
-document.getElementById('pauseEffects').addEventListener('click', ()=>{
-  effectsPaused = !effectsPaused;
-  document.getElementById('pauseEffects').textContent = effectsPaused ? '▶ Efek' : '⏸ Efek';
-});
-
-/* toggles for each effect */
-const toggles = {
-  hearts: true, sparkles: true, petals: true, balloons: true
-};
-function makeToggler(id, key){
-  const el = document.getElementById(id);
-  el.addEventListener('click', ()=>{
-    toggles[key] = !toggles[key];
-    el.textContent = `${el.textContent.split(' ')[0]} ${toggles[key] ? '✓' : '✕'}`;
-  });
+/* Popup */
+function openPopup() {
+    document.getElementById("popupCard").classList.add("show");
 }
-makeToggler('toggleHearts','hearts');
-makeToggler('toggleSpark','sparkles');
-makeToggler('togglePetal','petals');
-makeToggler('toggleBall','balloons');
+document.getElementById("closePopup").onclick = function() {
+    document.getElementById("popupCard").classList.remove("show");
+};
 
-/* helper random */
-function rand(min,max){ return Math.random()*(max-min)+min; }
+/* Pesan Next/Back */
+const pesanList = [
+    "⏳ Waktu berubah",
+    "🎂 Umur bertambah",
+    "💘 Perasaan tertinggal",
+    "💖 Namun kenangan tetap tersimpan",
+    "🌸 Semoga hatimu selalu bahagia"
+];
+let indexPesan = 0;
+function tampilkanPesan() {
+    document.getElementById("pesanArea").innerHTML = pesanList[indexPesan];
+}
+function nextMsg() {
+    indexPesan = (indexPesan + 1) % pesanList.length;
+    tampilkanPesan();
+}
+function prevMsg() {
+    indexPesan = (indexPesan - 1 + pesanList.length) % pesanList.length;
+    tampilkanPesan();
+}
+tampilkanPesan();
 
-/* HEARTS */
-const maxHearts = 22;
-setInterval(()=> {
-  if(effectsPaused || !toggles.hearts) return;
-  const count = Math.floor(rand(1,3));
-  for(let i=0;i<count;i++){
-    if(document.querySelectorAll('.heart').length > maxHearts) break;
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.textContent = ['💗','💖','💘'][Math.floor(rand(0,3))];
-    const size = Math.floor(rand(14,28));
-    h.style.fontSize = size + 'px';
-    h.style.left = rand(2,98)+'%';
-    h.style.top = '-6%';
-    effectsEl.appendChild(h);
-    const duration = rand(3800,7000);
-    h.animate([
-      { transform: `translateY(0) scale(1)`, opacity:1 },
-      { transform: `translateY(${rand(90,120)}vh) scale(${rand(1.1,1.6)})`, opacity:0 }
-    ], { duration: duration, easing:'linear' });
-    setTimeout(()=> h.remove(), duration+50);
-  }
-}, 600);
+/* Hitung Umur (WIB) */
+function hitungUmur() {
+    const lahir = new Date("2002-11-15T00:00:00+07:00");
+    const now = new Date(Date.now() + (7 * 3600 * 1000));
 
-/* SPARKLES */
-const maxSpark = 28;
-setInterval(()=>{
-  if(effectsPaused || !toggles.sparkles) return;
-  const s = document.createElement('div');
-  s.className = 'sparkle';
-  s.textContent = ['✨','✧','✦'][Math.floor(rand(0,3))];
-  s.style.left = rand(5,95)+'%';
-  s.style.top = rand(5,80)+'%';
-  s.style.fontSize = Math.floor(rand(10,20)) + 'px';
-  effectsEl.appendChild(s);
-  s.animate([
-    { transform:'translateY(0) scale(.8)', opacity:0 },
-    { transform:'translateY(-6vh) scale(1.2)', opacity:1 },
-    { transform:'translateY(-12vh) scale(.6)', opacity:0 }
-  ], { duration: 1800+Math.random()*1200, easing:'ease-out' });
-  setTimeout(()=> s.remove(), 2600);
-  if(document.querySelectorAll('.sparkle').length > maxSpark){
-    const extra = document.querySelectorAll('.sparkle');
-    if(extra[0]) extra[0].remove();
-  }
-}, 220);
+    let delta = (now - lahir) / 1000;
 
-/* SAKURA PETALS */
-const maxPetals = 20;
-setInterval(()=>{
-  if(effectsPaused || !toggles.petals) return;
-  const p = document.createElement('div');
-  p.className = 'petal';
-  p.textContent = ['🌸','🌺'][Math.floor(rand(0,2))];
-  p.style.left = rand(0,100)+'%';
-  p.style.top = '-4%';
-  p.style.fontSize = Math.floor(rand(14,28)) + 'px';
-  effectsEl.appendChild(p);
-  const dur = 5000 + Math.random()*4000;
-  p.animate([
-    { transform: 'translateY(0) rotate(0deg)', opacity:1 },
-    { transform: `translateY(${rand(80,120)}vh) rotate(${rand(180,720)}deg)`, opacity:0.05 }
-  ], { duration: dur, easing:'linear' });
-  setTimeout(()=> p.remove(), dur+50);
-  if(document.querySelectorAll('.petal').length > maxPetals){
-    const extra = document.querySelectorAll('.petal');
-    if(extra[0]) extra[0].remove();
-  }
-}, 700);
+    const tahun  = Math.floor(delta / (3600*24*365));
+    delta -= tahun * 3600*24*365;
 
-/* BALLOONS */
-const maxBall = 12;
-setInterval(()=>{
-  if(effectsPaused || !toggles.balloons) return;
-  if(document.querySelectorAll('.balloon').length > maxBall) return;
-  const b = document.createElement('div');
-  b.className = 'balloon';
-  b.textContent = ['🎈','🎈','🎈'][0];
-  const left = rand(8,92);
-  b.style.left = left + '%';
-  b.style.bottom = '-8%';
-  b.style.fontSize = Math.floor(rand(22,36)) + 'px';
-  effectsEl.appendChild(b);
-  const dur = 6000 + Math.random()*5000;
-  b.animate([
-    { transform:'translateY(0) scale(0.9)', opacity:0.95 },
-    { transform:`translateY(-120vh) scale(1.05)`, opacity:0.02 }
-  ], { duration: dur, easing:'linear' });
-  setTimeout(()=> b.remove(), dur+50);
-}, 1200);
+    const bulan  = Math.floor(delta / (3600*24*30));
+    delta -= bulan * 3600*24*30;
 
-/* clean up if too many nodes occasionally */
-setInterval(()=>{
-  const total = effectsEl.children.length;
-  if(total > 120){
-    // remove oldest 20
-    for(let i=0;i<20;i++){ if(effectsEl.firstChild) effectsEl.removeChild(effectsEl.firstChild); }
-  }
-}, 7000);
+    const minggu = Math.floor(delta / (3600*24*7));
+    delta -= minggu * 3600*24*7;
 
+    const hari   = Math.floor(delta / (3600*24));
+    delta -= hari * 3600*24;
+
+    const jam    = Math.floor(delta / 3600);
+    delta -= jam * 3600;
+
+    const menit  = Math.floor(delta / 60);
+    delta -= menit * 60;
+
+    const detik  = Math.floor(delta);
+
+    document.getElementById("umurBox").innerHTML =
+        `Umur: ${tahun} thn ${bulan} bln ${minggu} mgg 
+        ${hari} hr ${jam} j ${menit} m ${detik} dtk (WIB)`;
+}
+
+setInterval(hitungUmur, 1000);
+hitungUmur();
 </script>
+
 </body>
 </html>
