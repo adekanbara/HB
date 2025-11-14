@@ -3,227 +3,399 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Happy Birthday</title>
+<title>Birthday — Kawaii Full Effects</title>
 <style>
   :root{
-    --pink:#ff4fa3;
-    --soft:#ffdcec;
-    --text:#4d3a44;
+    --bg1:#fff0f6;
+    --bg2:#fff6fb;
+    --pink:#ff4fa8;
+    --accent:#ff89c9;
+    --muted:#5a3850;
   }
+  *{box-sizing:border-box}
   body{
     margin:0;
-    font-family: Inter, system-ui, Arial, sans-serif;
-    background: linear-gradient(135deg,#ffe6f2,#fff0f6);
-    color:var(--text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(circle at 10% 10%, #fff8fb 0%, #fff0f6 25%, #ffe6f9 100%);
+    color:var(--muted);
     text-align:center;
-    padding:20px;
-    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    min-height:100vh;
+    padding:28px 12px 60px;
   }
 
-  /* Container foto + bingkai (posisi foto dulu, bingkai setelah di DOM) */
-  .photo-wrap{
-    position: relative;
-    width: 280px;
-    height: 280px;
-    margin: 26px auto 8px auto;
-  }
-
-  /* Foto tampil di bawah (z-index lower) */
-  .photo{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:18px;
-    display:block;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    position:relative;
-    z-index:1;
-  }
-
-  /* Bingkai ditempatkan setelah foto di DOM, ditata absolute menutupi foto */
-  .frame{
-    position:absolute;
-    left:0; top:0;
-    width:100%;
-    height:100%;
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:cover; /* pastikan bingkai.png transparan area tengah */
-    pointer-events:none; /* agar bingkai tidak menghalangi klik */
-    z-index:2;
-    border-radius:18px;
-  }
-
+  /* Header */
+  header{margin-bottom:8px}
   h1{
+    margin:10px 0 6px;
     color:var(--pink);
-    font-size:34px;
-    margin:12px 0 4px;
-    text-shadow:0 4px 18px rgba(255,80,140,0.15);
+    font-size:36px;
+    text-shadow:0 6px 18px rgba(255,74,154,0.12);
+  }
+  .sub{font-size:14px; color:#b14a84; margin-bottom:6px}
+
+  /* FRAME */
+  .birthday-frame{
+    position:relative;
+    width:320px;
+    height:320px;
+    margin:18px auto;
+    border-radius:22px;
+    padding:10px;
+    background: linear-gradient(180deg,#fff7fb,#ffe8f6);
+    border:5px solid #ffd1eb;
+    box-shadow: 0 12px 35px rgba(255,120,170,0.15);
+    overflow:hidden;
+  }
+  .birthday-frame::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:22px;
+    pointer-events:none;
+    background: linear-gradient(45deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+  }
+  .photo{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:14px;
+    display:block;
   }
 
+  /* Cake icon + small age below cake */
+  .cake-wrapper{
+    position: absolute;
+    right:12px; top:12px;
+    display:flex; gap:8px; align-items:center;
+    background: rgba(255,255,255,0.7);
+    padding:6px 10px; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    font-weight:700; color:var(--pink);
+  }
+  .cake-icon{font-size:20px}
+  .age-small{
+    font-size:12px; color:#8e2a61;
+    text-align:right;
+    line-height:1;
+  }
+
+  /* MARQUEE */
   .marquee{
-    margin-top:8px;
-    font-weight:600;
-    color:#b3346b;
+    margin-top:14px;
+    width:100%;
     overflow:hidden;
     white-space:nowrap;
-  }
-  .marquee span{
-    display:inline-block;
-    padding-left:100%;
-    animation: slide 10s linear infinite;
-  }
-  @keyframes slide{
-    to{ transform:translateX(-100%); }
-  }
-
-  .age{
-    margin-top:12px;
+    box-sizing:border-box;
+    font-size:18px;
+    color:#b12f76;
     font-weight:700;
-    color:#ff2b95;
-    font-size:20px;
+    animation: runtext 14s linear infinite;
   }
+  @keyframes runtext{ from{transform:translateX(100%)} to{transform:translateX(-100%)} }
 
-  /* icon message */
-  .msg-btn{
-    margin-top:22px;
-    background:linear-gradient(180deg,var(--pink),#ff2b95);
-    border:none;
-    color:white;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    box-shadow:0 8px 20px rgba(255,80,140,0.18);
-    font-size:22px;
+  /* Pesan icon */
+  .controls{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .icon-btn{
+    width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(180deg,#ff8fc7,#ff4fa8);
+    color:white;font-size:28px;border:none;cursor:pointer;
+    box-shadow:0 10px 30px rgba(255,80,140,0.18);display:inline-flex;
+    align-items:center;justify-content:center;
+    transition:transform .18s;
+  }
+  .icon-btn:active{transform:scale(.96)}
+  .small-btn{
+    background:#fff; color:var(--pink); padding:10px 12px; border-radius:12px; border:1px solid #ffd6ea; font-weight:700;
     cursor:pointer;
   }
 
-  /* dialog pesan sederhana */
-  .dialog {
-    position: fixed;
-    left:50%;
-    top:55%;
-    transform: translate(-50%,-50%);
-    width:88%;
-    max-width:420px;
-    background: white;
-    border-radius:14px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.18);
-    padding:18px;
-    display:none;
-    z-index:999;
-  }
-  .dialog h3{ margin:0 0 8px; color:var(--pink); }
-  .dialog p{ margin:0 0 14px; font-size:18px; color:#333; }
-  .dialog .actions{ text-align:right; }
-  .dialog .btn {
-    padding:8px 12px;
-    border-radius:10px;
-    border:none;
-    cursor:pointer;
-    font-weight:600;
-  }
-  .btn-next{ background:var(--pink); color:#fff; margin-left:8px; }
-  .btn-close{ background:#eee; color:#333; }
+  /* Pesan area */
+  #pesanArea{margin-top:18px; font-size:22px; color:var(--pink); font-weight:800; min-height:36px; text-shadow:0 0 6px #ffd8ed}
 
-  /* footer small note */
-  .note{ margin-top:22px; color:#8a3b66; font-size:13px; opacity:0.9; }
+  /* EFFECT CONTAINERS (absolute layers) */
+  .effects-layer{
+    position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:50;
+    overflow:hidden;
+  }
 
-  /* responsive */
+  /* hearts, sakura, sparkle, balloons styles generated dynamically */
+  .heart{
+    position:absolute; font-size:18px; opacity:0.95; will-change:transform,opacity;
+    text-shadow:0 6px 18px rgba(255,80,140,0.12);
+  }
+  .petal{position:absolute; font-size:20px; opacity:0.95}
+  .sparkle{position:absolute; font-size:14px; opacity:0.9; filter:blur(.2px)}
+  .balloon{position:absolute; font-size:36px; transform-origin:center bottom; opacity:0.95}
+
+  /* small toggle panel bottom-right */
+  .toggle-panel{
+    position:fixed; right:12px; bottom:12px; z-index:120; display:flex; gap:8px; align-items:center;
+  }
+  .toggle-panel .toggler{background:#fff;padding:8px;border-radius:10px;border:1px solid #ffe0f0; cursor:pointer; font-weight:700; color:var(--pink)}
+
+  /* responsiveness */
   @media (max-width:420px){
-    .photo-wrap{ width:220px; height:220px; }
+    .birthday-frame{width:88vw;height:88vw}
+    .cake-wrapper{right:8px;top:8px}
+    .icon-btn{width:56px;height:56px}
   }
 </style>
 </head>
 <body>
 
-  <!-- Musik (opsional) -->
-  <audio id="bgmusic" src="musik.mp3" autoplay loop></audio>
+<header>
+  <h1>Happy Birthday 💖</h1>
+  <div class="sub">Semoga hari ini spesial ✨</div>
+</header>
 
-  <!-- Foto (foto dulu di DOM) -->
-  <div class="photo-wrap" aria-hidden="false">
-    <img src="foto.jpg" alt="Foto" class="photo">
-    <!-- Bingkai ditempatkan setelah foto -->
-    <div id="bingkai" class="frame" style="background-image: url('bingkai.png');"></div>
+<!-- Frame & Photo -->
+<div class="birthday-frame" role="img" aria-label="Foto ulang tahun">
+  <img src="foto.jpg" alt="Foto" class="photo" id="photoEl">
+  <div class="cake-wrapper" aria-hidden="true">
+    <span class="cake-icon">🎂</span>
+    <div class="age-small" id="tinyAge">menghitung…</div>
   </div>
+</div>
 
-  <h1>Happy Birthday!</h1>
+<div class="marquee">semoga keinginan dan harapannya terkabul • make a wish ✨ •</div>
 
-  <div class="marquee"><span>Semoga keinginan dan harapannya terkabul ✨</span></div>
+<!-- controls: message icon, music toggle, effects toggle -->
+<div class="controls">
+  <button class="icon-btn" id="msgBtn" title="Buka Pesan">💌</button>
+  <button class="small-btn" id="musicToggle">⏯ Musik</button>
+  <button class="small-btn" id="pauseEffects">⏸ Efek</button>
+</div>
 
-  <div class="age" id="age">...</div>
+<div id="pesanArea" aria-live="polite"></div>
 
-  <!-- tombol simbol pesan -->
-  <button class="msg-btn" id="msgBtn" title="Buka Pesan">💬</button>
+<!-- effects layer -->
+<div class="effects-layer" id="effects"></div>
 
-  <div class="note">Klik ikon pesan untuk melihat rangkaian pesan.</div>
+<!-- audio -->
+<audio id="bgMusic" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- Dialog pesan -->
-  <div class="dialog" id="dialog">
-    <h3>Pesan</h3>
-    <p id="dialogText">...</p>
-    <div class="actions">
-      <button class="btn btn-close" id="closeBtn">Close</button>
-      <button class="btn btn-next" id="nextBtn">Next</button>
-    </div>
-  </div>
+<!-- toggles -->
+<div class="toggle-panel">
+  <div class="toggler" id="toggleHearts">Hearts ✓</div>
+  <div class="toggler" id="toggleSpark">Sparkle ✓</div>
+  <div class="toggler" id="togglePetal">Sakura ✓</div>
+  <div class="toggler" id="toggleBall">Balloons ✓</div>
+</div>
 
 <script>
-  // Hitung umur dari 15 Nov 2002
-  (function calcAge(){
-    const birth = new Date("2002-11-15");
-    const now = new Date();
-    let age = now.getFullYear() - birth.getFullYear();
-    const m = now.getMonth() - birth.getMonth();
-    if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) age--;
-    document.getElementById('age').textContent = '🎂 ' + age + ' Tahun';
-  })();
+/* ===========================
+   REAL-TIME AGE (detailed)
+   =========================== */
+(function ageRealtime(){
+  const birth = new Date("2002-11-15T00:00:00");
+  const tiny = document.getElementById('tinyAge');
 
-  // Pesan sequence sesuai permintaan
-  const messages = ["waktu berubah", "umur bertambah", "perasaan tertinggal"];
-  let idx = 0;
+  function computeDetailed(birth, now){
+    // Years & months by comparing components
+    let y = now.getFullYear() - birth.getFullYear();
+    let m = now.getMonth() - birth.getMonth();
+    let d = now.getDate() - birth.getDate();
+    let hh = now.getHours() - birth.getHours();
+    let mm = now.getMinutes() - birth.getMinutes();
+    let ss = now.getSeconds() - birth.getSeconds();
 
-  const dialog = document.getElementById('dialog');
-  const dialogText = document.getElementById('dialogText');
-  const msgBtn = document.getElementById('msgBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const closeBtn = document.getElementById('closeBtn');
+    if (ss < 0){ ss += 60; mm -= 1; }
+    if (mm < 0){ mm += 60; hh -= 1; }
+    if (hh < 0){ hh += 24; d -= 1; }
 
-  // buka dialog dan tampil pesan pertama
-  msgBtn.addEventListener('click', ()=> {
-    idx = 0;
-    dialogText.textContent = messages[idx];
-    dialog.style.display = 'block';
-    // jika hanya 1 pesan, ganti next jadi Close
-    nextBtn.textContent = (messages.length > 1) ? 'Next' : 'Close';
-  });
-
-  // next -> berikutnya
-  nextBtn.addEventListener('click', ()=> {
-    idx++;
-    if (idx < messages.length) {
-      dialogText.textContent = messages[idx];
-      // jika sudah pesan terakhir ubah next jadi Close
-      if (idx === messages.length - 1) nextBtn.textContent = 'Close';
-    } else {
-      // semua pesan sudah dilihat -> close dialog
-      dialog.style.display = 'none';
+    if (d < 0){
+      // borrow days from previous month
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      d += prevMonth;
+      m -= 1;
     }
-  });
+    if (m < 0){ m += 12; y -= 1; }
 
-  // close button
-  closeBtn.addEventListener('click', ()=> {
-    dialog.style.display = 'none';
-  });
+    // weeks and remaining days
+    const weeks = Math.floor(d / 7);
+    const days = d % 7;
 
-  // ESC key closes
-  document.addEventListener('keydown', (e)=>{
-    if (e.key === 'Escape') dialog.style.display='none';
-  });
+    return {y,m,weeks,days,hh,mm,ss};
+  }
 
-  // Jika bingkai.png tidak muncul, user akan lihat bingkai kosong.
-  // Pastikan file 'bingkai.png' ada di repo, nama persis (case-sensitive).
+  function update(){
+    const now = new Date();
+    const t = computeDetailed(birth, now);
+    tiny.textContent = `${t.y} thn ${t.m} bln ${t.weeks} mgg ${t.days} hr ${pad(t.hh)}:${pad(t.mm)}:${pad(t.ss)}`;
+  }
+
+  function pad(n){ return n.toString().padStart(2,'0'); }
+
+  update();
+  setInterval(update, 1000);
+})();
+
+/* ===========================
+   MESSAGE SEQUENCE (kawaii)
+   =========================== */
+const messages = ["⏳ Waktu berubah", "🎂 Umur bertambah", "💘 Perasaan tertinggal"];
+let msgStage = 0;
+const pesanArea = document.getElementById('pesanArea');
+document.getElementById('msgBtn').addEventListener('click', ()=>{
+  pesanArea.textContent = messages[msgStage] || "";
+  msgStage = (msgStage + 1) % (messages.length + 1);
+  // when cycles past last, clear and reset after short delay
+  if(msgStage === messages.length) {
+    // show last then next click will clear
+  }
+});
+
+/* ===========================
+   MUSIC CONTROL
+   =========================== */
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+let musicPlaying = false;
+musicToggle.addEventListener('click', ()=>{
+  if(!musicPlaying){ bgMusic.play().catch(()=>{}); musicToggle.textContent = '🔊 Musik'; }
+  else { bgMusic.pause(); musicToggle.textContent = '🔈 Musik'; }
+  musicPlaying = !musicPlaying;
+});
+
+/* ===========================
+   EFFECTS - hearts, sparkle, petals, balloons
+   All active simultaneously (mode A).
+   Limited counts to prevent slowdown.
+   =========================== */
+const effectsEl = document.getElementById('effects');
+let effectsPaused = false;
+document.getElementById('pauseEffects').addEventListener('click', ()=>{
+  effectsPaused = !effectsPaused;
+  document.getElementById('pauseEffects').textContent = effectsPaused ? '▶ Efek' : '⏸ Efek';
+});
+
+/* toggles for each effect */
+const toggles = {
+  hearts: true, sparkles: true, petals: true, balloons: true
+};
+function makeToggler(id, key){
+  const el = document.getElementById(id);
+  el.addEventListener('click', ()=>{
+    toggles[key] = !toggles[key];
+    el.textContent = `${el.textContent.split(' ')[0]} ${toggles[key] ? '✓' : '✕'}`;
+  });
+}
+makeToggler('toggleHearts','hearts');
+makeToggler('toggleSpark','sparkles');
+makeToggler('togglePetal','petals');
+makeToggler('toggleBall','balloons');
+
+/* helper random */
+function rand(min,max){ return Math.random()*(max-min)+min; }
+
+/* HEARTS */
+const maxHearts = 22;
+setInterval(()=> {
+  if(effectsPaused || !toggles.hearts) return;
+  const count = Math.floor(rand(1,3));
+  for(let i=0;i<count;i++){
+    if(document.querySelectorAll('.heart').length > maxHearts) break;
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = ['💗','💖','💘'][Math.floor(rand(0,3))];
+    const size = Math.floor(rand(14,28));
+    h.style.fontSize = size + 'px';
+    h.style.left = rand(2,98)+'%';
+    h.style.top = '-6%';
+    effectsEl.appendChild(h);
+    const duration = rand(3800,7000);
+    h.animate([
+      { transform: `translateY(0) scale(1)`, opacity:1 },
+      { transform: `translateY(${rand(90,120)}vh) scale(${rand(1.1,1.6)})`, opacity:0 }
+    ], { duration: duration, easing:'linear' });
+    setTimeout(()=> h.remove(), duration+50);
+  }
+}, 600);
+
+/* SPARKLES */
+const maxSpark = 28;
+setInterval(()=>{
+  if(effectsPaused || !toggles.sparkles) return;
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.textContent = ['✨','✧','✦'][Math.floor(rand(0,3))];
+  s.style.left = rand(5,95)+'%';
+  s.style.top = rand(5,80)+'%';
+  s.style.fontSize = Math.floor(rand(10,20)) + 'px';
+  effectsEl.appendChild(s);
+  s.animate([
+    { transform:'translateY(0) scale(.8)', opacity:0 },
+    { transform:'translateY(-6vh) scale(1.2)', opacity:1 },
+    { transform:'translateY(-12vh) scale(.6)', opacity:0 }
+  ], { duration: 1800+Math.random()*1200, easing:'ease-out' });
+  setTimeout(()=> s.remove(), 2600);
+  if(document.querySelectorAll('.sparkle').length > maxSpark){
+    const extra = document.querySelectorAll('.sparkle');
+    if(extra[0]) extra[0].remove();
+  }
+}, 220);
+
+/* SAKURA PETALS */
+const maxPetals = 20;
+setInterval(()=>{
+  if(effectsPaused || !toggles.petals) return;
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = ['🌸','🌺'][Math.floor(rand(0,2))];
+  p.style.left = rand(0,100)+'%';
+  p.style.top = '-4%';
+  p.style.fontSize = Math.floor(rand(14,28)) + 'px';
+  effectsEl.appendChild(p);
+  const dur = 5000 + Math.random()*4000;
+  p.animate([
+    { transform: 'translateY(0) rotate(0deg)', opacity:1 },
+    { transform: `translateY(${rand(80,120)}vh) rotate(${rand(180,720)}deg)`, opacity:0.05 }
+  ], { duration: dur, easing:'linear' });
+  setTimeout(()=> p.remove(), dur+50);
+  if(document.querySelectorAll('.petal').length > maxPetals){
+    const extra = document.querySelectorAll('.petal');
+    if(extra[0]) extra[0].remove();
+  }
+}, 700);
+
+/* BALLOONS */
+const maxBall = 12;
+setInterval(()=>{
+  if(effectsPaused || !toggles.balloons) return;
+  if(document.querySelectorAll('.balloon').length > maxBall) return;
+  const b = document.createElement('div');
+  b.className = 'balloon';
+  b.textContent = ['🎈','🎈','🎈'][0];
+  const left = rand(8,92);
+  b.style.left = left + '%';
+  b.style.bottom = '-8%';
+  b.style.fontSize = Math.floor(rand(22,36)) + 'px';
+  effectsEl.appendChild(b);
+  const dur = 6000 + Math.random()*5000;
+  b.animate([
+    { transform:'translateY(0) scale(0.9)', opacity:0.95 },
+    { transform:`translateY(-120vh) scale(1.05)`, opacity:0.02 }
+  ], { duration: dur, easing:'linear' });
+  setTimeout(()=> b.remove(), dur+50);
+}, 1200);
+
+/* clean up if too many nodes occasionally */
+setInterval(()=>{
+  const total = effectsEl.children.length;
+  if(total > 120){
+    // remove oldest 20
+    for(let i=0;i<20;i++){ if(effectsEl.firstChild) effectsEl.removeChild(effectsEl.firstChild); }
+  }
+}, 7000);
+
 </script>
-
 </body>
 </html>
