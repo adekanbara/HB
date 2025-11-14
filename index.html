@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#ff4fa8">
 <title>Birthday — Kawaii Full Effects</title>
-<link rel="icon" href="favicon.png" type="image/png">
 <style>
 :root{
   --bg1:#fff0f6;
@@ -334,29 +332,60 @@ setInterval(()=>{
   setTimeout(()=>fb.remove(),dur);
 },800);
 
-// ===================== DOLL BUTTON (2x size + rotate) =====================
+// ===================== DOLL BUTTON DARI KADO =====================
 document.getElementById("dollBtn").onclick = ()=>{
-  const doll=document.createElement("div");
-  doll.className="doll"; 
-  doll.textContent="🧸";
-  doll.style.position="fixed";
-  doll.style.left="50%";
-  doll.style.top="50%";
-  doll.style.transform="translate(-50%,-50%) scale(0)";
-  doll.style.fontSize="200px";
-  doll.style.zIndex=150;
-  doll.style.transition="transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),opacity 0.5s";
+  const frame = document.querySelector(".birthday-frame");
+
+  // Kado
+  const gift = document.createElement("div");
+  gift.textContent = "🎁";
+  gift.style.position = "absolute";
+  gift.style.left = "50%";
+  gift.style.top = "50%";
+  gift.style.transform = "translate(-50%,-50%) rotate(0deg)";
+  gift.style.fontSize = "80px";
+  gift.style.cursor = "pointer";
+  gift.style.zIndex = 140;
+  frame.appendChild(gift);
+
+  // Beruang (isi kado) awalnya tersembunyi
+  const doll = document.createElement("div");
+  doll.className = "doll";
+  doll.textContent = "🧸";
+  doll.style.position = "absolute";
+  doll.style.left = "50%";
+  doll.style.top = "50%";
+  doll.style.transform = "translate(-50%,-50%) scale(0)";
+  doll.style.fontSize = "200px";
+  doll.style.zIndex = 150;
   effects.appendChild(doll);
 
-  // Animasi scale + rotate
-  doll.animate([{transform:"translate(-50%, -50%) scale(0) rotate(0deg)",opacity:1},
-                {transform:"translate(-50%, -50%) scale(1.2) rotate(360deg)",opacity:1}], {duration:2000,easing:"ease-out"});
+  // Efek goyang kado
+  let angle = 0, shakes = 0;
+  const shakeInterval = setInterval(()=>{
+    angle = angle === 0 ? 15 : -angle;
+    gift.style.transform = `translate(-50%,-50%) rotate(${angle}deg)`;
+    shakes++;
+    if(shakes > 6){ // selesai goyang
+      clearInterval(shakeInterval);
+      gift.remove(); // kado hilang
 
-  setTimeout(()=>{
-    doll.style.transform="translate(-50%,-50%) scale(0)";
-    doll.style.opacity="0";
-    setTimeout(()=>doll.remove(),600);
-  },2000);
+      // Beruang muncul dari posisi kado
+      doll.animate(
+        [
+          {transform:"translate(-50%, -50%) scale(0) rotate(0deg)", opacity:1},
+          {transform:"translate(-50%, -50%) scale(1.2) rotate(360deg)", opacity:1}
+        ],
+        {duration:2000, easing:"ease-out"}
+      );
+
+      setTimeout(()=>{
+        doll.style.transform="translate(-50%,-50%) scale(0)";
+        doll.style.opacity="0";
+        setTimeout(()=>doll.remove(),600);
+      },2000);
+    }
+  }, 100);
 };
 </script>
 </body>
