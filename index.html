@@ -1,166 +1,195 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Happy Birthday</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎉</title>
 
 <style>
     body {
         margin: 0;
         font-family: 'Poppins', sans-serif;
-        background: #f7d6e0;
+        background: linear-gradient(135deg, #ffd6e8, #ffe6f2);
+        color: #4d3a44;
         text-align: center;
+        padding: 20px;
         overflow-x: hidden;
     }
 
-    /* ===== Foto + Bingkai ===== */
-    .frame {
+    /* Background hearts */
+    .hearts {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        background-image: url('https://i.imgur.com/fqMvj6m.png');
+        opacity: 0.25;
+    }
+
+    /* BINGKAI FOTO */
+    .photo-frame {
         width: 260px;
-        height: 260px;
-        padding: 20px;
-        background-image: url('bingkai.png'); /* pastikan nama sama! */
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 25px;
-        margin: 30px auto 10px auto;
-    }
-
-    .foto {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
+        padding: 12px;
+        margin: 0 auto;
         border-radius: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        background: #fff5fa;
+        box-shadow: 0 0 20px rgba(255, 120, 170, 0.3);
+        border: 4px solid #ffb6d9;
+        position: relative;
     }
 
+    .photo-frame img {
+        width: 100%;
+        border-radius: 15px;
+        display: block;
+    }
+
+    /* Bingkai bunga di pojok foto */
+    .flower {
+        position: absolute;
+        width: 60px;
+    }
+    .flower.top-left { top: -25px; left: -25px; }
+    .flower.top-right { top: -25px; right: -25px; }
+    .flower.bottom-left { bottom: -25px; left: -25px; }
+    .flower.bottom-right { bottom: -25px; right: -25px; }
+
+    /* Judul */
     h1 {
-        color: pink;
-        font-size: 38px;
-        margin-top: -5px;
+        font-size: 40px;
+        color: #ff4fa3;
+        text-shadow: 0 2px 10px rgba(255, 100, 150, 0.4);
+        margin-top: 25px;
+        margin-bottom: 3px;
     }
 
-    .umur {
-        font-size: 24px;
-        margin-top: -5px;
-    }
-
-    /* ===== Teks Berjalan ===== */
-    marquee {
+    /* Running Text */
+    .marquee {
         margin-top: 10px;
-        font-size: 20px;
-        color: #b4004e;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: slide 12s linear infinite;
+        font-size: 18px;
+        color: #b3306d;
         font-weight: bold;
     }
-
-    /* ===== Form Pesan ===== */
-    .pesan-box {
-        margin-top: 25px;
+    @keyframes slide {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-100%); }
     }
 
+    /* Usia + ikon kue */
+    .age-box {
+        margin-top: 15px;
+        font-size: 26px;
+        font-weight: bold;
+        color: #ff3e8a;
+    }
+
+    /* Input pesan */
     input {
-        width: 60%;
-        padding: 10px;
-        border-radius: 10px;
-        border: 2px solid #ff7aa8;
+        padding: 12px;
+        width: 75%;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 2px solid #ff9ac8;
+        outline: none;
     }
 
     button {
-        padding: 10px 15px;
-        background: hotpink;
+        padding: 12px 20px;
         border: none;
+        background: #ff4fa3;
         color: white;
+        font-size: 16px;
+        border-radius: 12px;
+        margin-top: 12px;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(255, 50, 150, 0.4);
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #ff267a;
+        transform: scale(1.05);
+    }
+
+    /* Kotak pesan */
+    #pesan-container {
+        margin-top: 25px;
+        background: #ffffffcc;
+        padding: 15px;
+        border-radius: 12px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 0 10px rgba(255, 100, 150, 0.2);
+    }
+
+    .pesan {
+        padding: 10px;
+        background: #ffe3f1;
+        margin-bottom: 10px;
         border-radius: 10px;
-        font-weight: bold;
+        text-align: left;
     }
-
-    .status {
-        margin-top: 10px;
-        color: red;
-    }
-
 </style>
 </head>
 <body>
 
-<!-- Musik -->
-<audio src="musik.mp3" autoplay loop hidden></audio>
+<div class="hearts"></div>
 
-<!-- Foto + Bingkai -->
-<div class="frame">
-    <img src="foto.jpg" class="foto">
+<div class="photo-frame">
+    <img src="foto.jpg" alt="Foto Ulang Tahun">
+
+    <!-- Bunga di setiap pojok -->
+    <img class="flower top-left" src="https://i.imgur.com/9QFJQyZ.png">
+    <img class="flower top-right" src="https://i.imgur.com/9QFJQyZ.png">
+    <img class="flower bottom-left" src="https://i.imgur.com/9QFJQyZ.png">
+    <img class="flower bottom-right" src="https://i.imgur.com/9QFJQyZ.png">
 </div>
 
-<h1>Happy Birthday 🎉🎂</h1>
+<h1>Happy Birthday 🎉</h1>
 
-<!-- Umur -->
-<p class="umur" id="umur">...</p>
+<div class="marquee">Semoga keinginan dan harapannya terkabul 💕</div>
 
-<!-- Teks Berjalan -->
-<marquee>Semoga keinginan dan harapannya terkabul 💖</marquee>
+<div class="age-box" id="usia"></div>
 
-<!-- Form Pesan -->
-<div class="pesan-box">
-    <h2>Kirim Harapan</h2>
-    <input type="text" id="pesan" placeholder="Tulis harapanmu...">
-    <button onclick="kirim()">Kirim</button>
-    <p class="status" id="status"></p>
-</div>
+<h2>Kirim Harapan</h2>
+<input type="text" id="inputPesan" placeholder="Tulis harapan..." />
+<br>
+<button onclick="tambahPesan()">Kirim</button>
+
+<div id="pesan-container"></div>
+
+<audio autoplay loop>
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-/* ===== Hitung Umur ===== */
-function hitungUmur() {
-    const lahir = new Date("2002-11-15");
-    const sekarang = new Date();
-    let umur = sekarang.getFullYear() - lahir.getFullYear();
-
-    // Jika belum ulang tahun bulan ini
-    const bulan = sekarang.getMonth() - lahir.getMonth();
-    if (bulan < 0 || (bulan === 0 && sekarang.getDate() < lahir.getDate())) {
-        umur--;
+    function hitungUsia() {
+        let lahir = new Date("2002-11-15");
+        let sekarang = new Date();
+        let usia = sekarang.getFullYear() - lahir.getFullYear();
+        document.getElementById("usia").innerHTML = "🎂 " + usia + " Tahun 🎂";
     }
+    hitungUsia();
 
-    document.getElementById("umur").innerHTML = `🎂 ${umur} Tahun 🎉`;
-}
-hitungUmur();
+    function tambahPesan() {
+        let text = document.getElementById("inputPesan").value;
+        if (text.trim() === "") return;
 
-/* ===== Kirim Pesan ke GitHub ===== */
-function kirim() {
-    let pesan = document.getElementById("pesan").value.trim();
-    let status = document.getElementById("status");
+        let box = document.createElement("div");
+        box.className = "pesan";
+        box.innerText = text;
 
-    if (pesan === "") {
-        status.innerHTML = "Tulis pesan dulu.";
-        return;
+        document.getElementById("pesan-container").appendChild(box);
+
+        document.getElementById("inputPesan").value = "";
     }
-
-    status.innerHTML = "Mengirim...";
-
-    fetch("https://api.github.com/repos/adekanbara/HB/dispatches", {
-        method: "POST",
-        headers: {
-            "Accept": "application/vnd.github+json",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer YOURGITHUB" 
-        },
-        body: JSON.stringify({
-            event_type: "kirim_pesan",
-            client_payload: { pesan: pesan }
-        })
-    })
-    .then(res => {
-        if (res.status === 204) {
-            status.style.color = "green";
-            status.innerHTML = "Pesan terkirim!";
-            document.getElementById("pesan").value = "";
-        } else {
-            status.innerHTML = "Gagal mengirim.";
-        }
-    });
-}
 </script>
 
 </body>
