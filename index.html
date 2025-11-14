@@ -70,21 +70,27 @@ h1{
 }
 #nextAgeCountdown { font-size:11px; color:#b14578; }
 
-/* MARQUEE */
-.marquee{
-  margin-top:14px;
-  white-space:nowrap;
+/* MARQUEE FIX */
+.marquee-wrapper{
   overflow:hidden;
+  width:100%;
+  margin-top:14px;
+}
+.marquee{
+  display:inline-block;
+  padding-left:100%;
+  white-space:nowrap;
   font-size:min(5vw,18px);
   color:#b12f76;
   font-weight:700;
   animation: runtext 14s linear infinite;
 }
 @keyframes runtext{
-  from{transform:translateX(100%)}
-  to{transform:translateX(-100%)}
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
 }
 
+/* CONTROLS */
 .controls{
   margin-top:18px;
   display:flex;
@@ -113,7 +119,7 @@ h1{
 }
 
 /* KAWAII EFFECTS */
-.heart,.petal,.sparkle,.balloon,.star,.moon,.cloud{
+.heart,.petal,.sparkle,.balloon,.star,.moon,.cloud,.doll{
   position:absolute;
 }
 
@@ -139,11 +145,14 @@ h1{
   </div>
 </div>
 
-<div class="marquee">semoga keinginan dan harapannya terkabul ✨</div>
+<div class="marquee-wrapper">
+  <div class="marquee" id="marquee">semoga keinginan dan harapannya terkabul ✨</div>
+</div>
 
 <div class="controls">
   <button class="icon-btn" id="msgBtn">💌</button>
   <button class="small-btn" id="musicToggle">⏯ Musik</button>
+  <button class="icon-btn" id="dollBtn">🎎</button>
 </div>
 
 <div id="pesanArea"></div>
@@ -224,10 +233,9 @@ setInterval(()=>{
   p.style.fontSize= (16+Math.random()*12)+"px";
   effects.appendChild(p);
   const dur=5000+Math.random()*3000;
-  p.animate([
-    {transform:"translateY(0) rotate(0deg)", opacity:1},
-    {transform:`translateY(110vh) rotate(${200+Math.random()*300}deg)`, opacity:0}
-  ],{duration:dur, easing:"linear"});
+  p.animate([{transform:"translateY(0) rotate(0deg)", opacity:1},
+             {transform:`translateY(110vh) rotate(${200+Math.random()*300}deg)`, opacity:0}],
+             {duration:dur, easing:"linear"});
   setTimeout(()=>p.remove(), dur);
 },700);
 
@@ -311,6 +319,23 @@ setInterval(()=>{
             {duration:20000+Math.random()*10000, easing:"linear"});
   setTimeout(()=>c.remove(),20000);
 },8000);
+
+/* ===============================
+   DOLL BUTTON
+   =============================== */
+document.getElementById("dollBtn").onclick = ()=>{
+  const doll = document.createElement("div");
+  doll.className="doll";
+  doll.textContent = "🧸"; // boneka lucu
+  doll.style.left = Math.random()*80 + "%";
+  doll.style.top = "10%";
+  doll.style.fontSize = (30 + Math.random()*30) + "px";
+  doll.style.zIndex = 60;
+  effects.appendChild(doll);
+  doll.animate([{transform:"translateY(0)"},{transform:"translateY(100vh)"}],
+               {duration:5000 + Math.random()*3000, easing:"linear"});
+  setTimeout(()=>doll.remove(),6000);
+};
 </script>
 
 </body>
