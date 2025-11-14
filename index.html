@@ -145,7 +145,7 @@ h1{
 </div>
 
 <div class="marquee-wrapper">
-  <div class="marquee" id="marquee">Happy Birthday 🎈 semoga semua keinginanmu terkabul ✨</div>
+  <div class="marquee" id="marquee">Happy Birthday 🎈 Hari spesial untuk orang sepesial juga ✨</div>
 </div>
 
 <div class="controls">
@@ -183,10 +183,9 @@ h1{
     h1Age.textContent = age + " Tahun";
     smallAge.textContent = age + " thn";
 
-    // COUNTDOWN KE ULANG TAHUN BERIKUTNYA
+    // Countdown ke ulang tahun berikutnya
     let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
     if(hasHadBirthday) next.setFullYear(now.getFullYear()+1);
-
     const diff = next - now;
     const d = Math.floor(diff / (1000*60*60*24));
     const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
@@ -212,16 +211,14 @@ const msgs = [
 let mi = 0;
 
 document.getElementById("msgBtn").onclick = () => {
-  // Dapatkan umur saat ini
   const birth = new Date("2002-11-15T00:00:00+07:00");
   const now = new Date();
   let age = now.getFullYear() - birth.getFullYear();
   const hasHadBirthday =
       now.getMonth() > birth.getMonth() ||
       (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
-  if(!hasHadBirthday) age -= 1;
+  if(!hasHadBirthday) age -= 1; // umur saat ini
 
-  // Buat popup
   const popup = document.createElement("div");
   popup.style.position = "fixed";
   popup.style.top = "50%";
@@ -235,18 +232,24 @@ document.getElementById("msgBtn").onclick = () => {
   popup.style.zIndex = 100;
   popup.style.textAlign = "center";
 
-  // Sesuaikan ucapan ulang tahun dengan umur
   let pesanTeks = msgs[mi];
-  if(pesanTeks.includes("Selamat ulang tahun")) pesanTeks = `Selamat ulang tahun ke-${age+1}! 🎂`;
+  if(pesanTeks.includes("Selamat ulang tahun")) pesanTeks = `Selamat ulang tahun ke-${age}! 🎂`;
 
-  popup.innerHTML = `<p style="font-size:20px;color:#b12f76;margin:0;">${pesanTeks}</p><br>
-                     <button id="nextBtn" style="padding:8px 12px;border-radius:12px;border:none;background:#ff4fa8;color:white;font-weight:bold;cursor:pointer;">Next</button>`;
+  popup.innerHTML = `
+    <p style="font-size:20px;color:#b12f76;margin:0;">${pesanTeks}</p><br>
+    <button id="nextBtn" style="padding:8px 12px;border-radius:12px;border:none;background:#ff4fa8;color:white;font-weight:bold;cursor:pointer;margin-right:6px;">Next</button>
+    <button id="closeBtn" style="padding:8px 12px;border-radius:12px;border:none;background:#ccc;color:#555;font-weight:bold;cursor:pointer;">Close</button>
+  `;
   document.body.appendChild(popup);
 
   document.getElementById("nextBtn").onclick = ()=>{
     mi = (mi+1) % msgs.length;
     popup.remove();
-    document.getElementById("msgBtn").click(); // trigger next popup
+    document.getElementById("msgBtn").click(); 
+  };
+
+  document.getElementById("closeBtn").onclick = ()=>{
+    popup.remove();
   };
 };
 
@@ -312,7 +315,7 @@ setInterval(()=>{
 document.getElementById("dollBtn").onclick = ()=>{
   const doll = document.createElement("div");
   doll.className="doll";
-  doll.textContent = "🧸"; // boneka lucu
+  doll.textContent = "🧸";
   doll.style.left = Math.random()*80 + "%";
   doll.style.top = "10%";
   doll.style.fontSize = (80 + Math.random()*80) + "px";
