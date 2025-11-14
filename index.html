@@ -154,7 +154,7 @@ h1{
 <script>
 // ===================== AGE & COUNTDOWN =====================
 (function(){
-  const birth = new Date("2002-11-15T00:00:00+07:00");
+  const birth = new Date("2001-11-15T00:00:00+07:00");
   const h1Age = document.getElementById("bigAge");
   const smallCountdown = document.getElementById("smallCountdown");
 
@@ -187,12 +187,12 @@ const msgs = [
   "Semoga harimu menyenangkan! 🎉",
   "Semoga semua impianmu terkabul! 🌸",
   "Selamat ulang tahun! 🎂",
-  "Semoga selalu bahagia dan sehat! 💖"
+  "Selamat selalu bahagia dan sehat! 💖"
 ];
 let mi = 0;
 
 document.getElementById("msgBtn").onclick = ()=>{
-  const birth = new Date("2002-11-15T00:00:00+07:00");
+  const birth = new Date("2001-11-15T00:00:00+07:00");
   const now = new Date();
   let age = now.getFullYear() - birth.getFullYear();
   const hasHadBirthday = now.getMonth() > birth.getMonth() || 
@@ -332,7 +332,7 @@ setInterval(()=>{
   setTimeout(()=>fb.remove(),dur);
 },800);
 
-// ===================== DOLL BUTTON DARI KADO =====================
+// ===================== DOLL BUTTON DARI KADO + LOMPAT =====================
 document.getElementById("dollBtn").onclick = ()=>{
   const frame = document.querySelector(".birthday-frame");
 
@@ -348,7 +348,7 @@ document.getElementById("dollBtn").onclick = ()=>{
   gift.style.zIndex = 140;
   frame.appendChild(gift);
 
-  // Beruang (isi kado) awalnya tersembunyi
+  // Beruang awalnya tersembunyi
   const doll = document.createElement("div");
   doll.className = "doll";
   doll.textContent = "🧸";
@@ -366,26 +366,23 @@ document.getElementById("dollBtn").onclick = ()=>{
     angle = angle === 0 ? 15 : -angle;
     gift.style.transform = `translate(-50%,-50%) rotate(${angle}deg)`;
     shakes++;
-    if(shakes > 6){ // selesai goyang
+    if(shakes > 6){
       clearInterval(shakeInterval);
-      gift.remove(); // kado hilang
+      gift.remove();
 
-      // Beruang muncul dari posisi kado
+      // Beruang muncul + melompat
       doll.animate(
         [
           {transform:"translate(-50%, -50%) scale(0) rotate(0deg)", opacity:1},
-          {transform:"translate(-50%, -50%) scale(1.2) rotate(360deg)", opacity:1}
+          {transform:"translate(-50%, -120%) scale(1.2) rotate(360deg)", opacity:1},
+          {transform:"translate(-50%, -50%) scale(1) rotate(0deg)", opacity:1}
         ],
         {duration:2000, easing:"ease-out"}
       );
 
-      setTimeout(()=>{
-        doll.style.transform="translate(-50%,-50%) scale(0)";
-        doll.style.opacity="0";
-        setTimeout(()=>doll.remove(),600);
-      },2000);
+      setTimeout(()=>{ doll.remove(); },2000);
     }
-  }, 100);
+  },100);
 };
 </script>
 </body>
