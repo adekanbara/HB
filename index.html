@@ -70,7 +70,7 @@ h1{
 }
 #nextAgeCountdown { font-size:11px; color:#b14578; }
 
-/* MARQUEE FIX */
+/* MARQUEE */
 .marquee-wrapper{
   overflow:hidden;
   width:100%;
@@ -118,7 +118,6 @@ h1{
   pointer-events:none; z-index:50;
 }
 
-/* KAWAII EFFECTS */
 .heart,.petal,.sparkle,.balloon,.star,.moon,.cloud,.doll{
   position:absolute;
 }
@@ -133,7 +132,7 @@ h1{
 
 <header>
   <h1 id="bigAge">Menghitung…</h1>
-  <div class="sub">Semoga hari ini spesial ✨</div>
+  <div class="sub">Happy Birthday 🎈 Semoga hari ini spesial ✨</div>
 </header>
 
 <div class="birthday-frame">
@@ -146,7 +145,7 @@ h1{
 </div>
 
 <div class="marquee-wrapper">
-  <div class="marquee" id="marquee">semoga keinginan dan harapannya terkabul ✨</div>
+  <div class="marquee" id="marquee">Happy Birthday 🎈 semoga semua keinginanmu terkabul ✨</div>
 </div>
 
 <div class="controls">
@@ -184,10 +183,11 @@ h1{
     h1Age.textContent = age + " Tahun";
     smallAge.textContent = age + " thn";
 
-    const next = new Date(now.getFullYear(), 10, 15,0,0,0);
+    // COUNTDOWN KE ULANG TAHUN BERIKUTNYA
+    let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
     if(hasHadBirthday) next.setFullYear(now.getFullYear()+1);
-    const diff = next - now;
 
+    const diff = next - now;
     const d = Math.floor(diff / (1000*60*60*24));
     const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
     const m = Math.floor((diff % (1000*60*60)) / (1000*60));
@@ -201,13 +201,53 @@ h1{
 })();
 
 /* ===============================
-   MESSAGE BUTTON
+   MESSAGE BUTTON POPUP SESUAI UMUR
    =============================== */
-const msgs = ["Waktu berubah…", "Umur bertambah…", "Perasaan tertinggal…"];
-let mi=0;
+const msgs = [
+  "Semoga harimu menyenangkan! 🎉",
+  "Semoga impianmu terkabul! 🌸",
+  "Selamat ulang tahun! 🎂",
+  "Semoga selalu bahagia dan sehat! 💖"
+];
+let mi = 0;
+
 document.getElementById("msgBtn").onclick = () => {
-  document.getElementById("pesanArea").textContent = msgs[mi];
-  mi = (mi+1) % msgs.length;
+  // Dapatkan umur saat ini
+  const birth = new Date("2002-11-15T00:00:00+07:00");
+  const now = new Date();
+  let age = now.getFullYear() - birth.getFullYear();
+  const hasHadBirthday =
+      now.getMonth() > birth.getMonth() ||
+      (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
+  if(!hasHadBirthday) age -= 1;
+
+  // Buat popup
+  const popup = document.createElement("div");
+  popup.style.position = "fixed";
+  popup.style.top = "50%";
+  popup.style.left = "50%";
+  popup.style.transform = "translate(-50%, -50%)";
+  popup.style.background = "#fff0f6";
+  popup.style.padding = "20px";
+  popup.style.border = "3px solid #ff4fa8";
+  popup.style.borderRadius = "16px";
+  popup.style.boxShadow = "0 10px 30px rgba(255,80,140,0.3)";
+  popup.style.zIndex = 100;
+  popup.style.textAlign = "center";
+
+  // Sesuaikan ucapan ulang tahun dengan umur
+  let pesanTeks = msgs[mi];
+  if(pesanTeks.includes("Selamat ulang tahun")) pesanTeks = `Selamat ulang tahun ke-${age+1}! 🎂`;
+
+  popup.innerHTML = `<p style="font-size:20px;color:#b12f76;margin:0;">${pesanTeks}</p><br>
+                     <button id="nextBtn" style="padding:8px 12px;border-radius:12px;border:none;background:#ff4fa8;color:white;font-weight:bold;cursor:pointer;">Next</button>`;
+  document.body.appendChild(popup);
+
+  document.getElementById("nextBtn").onclick = ()=>{
+    mi = (mi+1) % msgs.length;
+    popup.remove();
+    document.getElementById("msgBtn").click(); // trigger next popup
+  };
 };
 
 /* ===============================
@@ -253,19 +293,6 @@ setInterval(()=>{
   setTimeout(()=>h.remove(), dur);
 },500);
 
-/* sparkle */
-setInterval(()=>{
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.textContent="✨";
-  s.style.left=Math.random()*100+"%";
-  s.style.top=Math.random()*100+"%";
-  s.style.fontSize= (10+Math.random()*10)+"px";
-  effects.appendChild(s);
-  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:1500});
-  setTimeout(()=>s.remove(), 1500);
-},220);
-
 /* balloons */
 setInterval(()=>{
   const b=document.createElement("div");
@@ -278,47 +305,6 @@ setInterval(()=>{
   b.animate([{transform:"translateY(0)",opacity:1},{transform:"translateY(-120vh)",opacity:0}],{duration:dur});
   setTimeout(()=>b.remove(), dur);
 },1200);
-
-/* stars */
-setInterval(()=>{
-  const s=document.createElement("div");
-  s.className="star";
-  s.textContent="⭐";
-  s.style.left=Math.random()*100+"%";
-  s.style.top=Math.random()*100+"%";
-  s.style.fontSize=(6+Math.random()*8)+"px";
-  effects.appendChild(s);
-  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:2000+Math.random()*2000});
-  setTimeout(()=>s.remove(),3000);
-},300);
-
-/* moon */
-setInterval(()=>{
-  const m=document.createElement("div");
-  m.className="moon";
-  m.textContent="🌙";
-  m.style.left=Math.random()*100+"%";
-  m.style.top="10%";
-  effects.appendChild(m);
-  m.animate([{transform:"translateY(0)"},{transform:"translateY(10vh)"}],
-            {duration:10000, easing:"linear"});
-  setTimeout(()=>m.remove(),10000);
-},15000);
-
-/* cloud */
-setInterval(()=>{
-  const c=document.createElement("div");
-  c.className="cloud";
-  c.textContent="☁️";
-  c.style.left="-10%";
-  c.style.top=(Math.random()*50)+"%";
-  c.style.fontSize=(16+Math.random()*12)+"px";
-  c.style.opacity=0.5;
-  effects.appendChild(c);
-  c.animate([{transform:"translateX(0)"},{transform:"translateX(120vw)"}],
-            {duration:20000+Math.random()*10000, easing:"linear"});
-  setTimeout(()=>c.remove(),20000);
-},8000);
 
 /* ===============================
    DOLL BUTTON
