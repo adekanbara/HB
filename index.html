@@ -75,6 +75,14 @@ h1{
 }
 #nextAgeCountdown { font-size:11px; color:#b14578; }
 
+/* Countdown kecil H1 */
+#smallCountdown{
+  font-size:16px;
+  color:#b12f76;
+  margin:6px 0;
+  font-weight:700;
+}
+
 /* MARQUEE */
 .marquee-wrapper{
   overflow:hidden;
@@ -137,16 +145,17 @@ h1{
 
 <header>
   <h1 id="bigAge">Menghitung…</h1>
+  <div id="smallCountdown">🎂 0d 0h 0m 0s menuju ulang tahun 🎂</div>
   <div class="sub">Happy Birthday 🎈 Neng ♥️✨</div>
+</header>
 
-<div class="cake-wrapper">
+<div class="birthday-frame">
+  <img src="foto.jpg" class="photo" alt="Foto ulang tahun">
+  <div class="cake-wrapper">
     <span class="cake-icon">🎂</span>
     <div class="age-small" id="tinyAge">...</div>
     <div id="nextAgeCountdown">...</div>
 </div>
-</header>
-<div class="birthday-frame">
-  <img src="foto.jpg" class="photo" alt="Foto ulang tahun">
 </div>
 
 <div class="marquee-wrapper">
@@ -173,6 +182,7 @@ h1{
   const h1Age = document.getElementById("bigAge");
   const smallAge = document.getElementById("tinyAge");
   const cdText = document.getElementById("nextAgeCountdown");
+  const smallCountdown = document.getElementById("smallCountdown");
 
   function updateAge(){
     const now = new Date();
@@ -191,8 +201,11 @@ h1{
     const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
     const m = Math.floor((diff % (1000*60*60)) / (1000*60));
     const s = Math.floor((diff % (1000*60)) / 1000);
+
     cdText.textContent = `Menuju ${age+1} thn: ${d} hari ${h} jam ${m} menit ${s} detik`;
+    smallCountdown.textContent = `🎂 ${d}d ${h}h ${m}m ${s}s menuju ulang tahun ke-${age+1} 🎂`;
   }
+
   updateAge();
   setInterval(updateAge,1000);
 })();
