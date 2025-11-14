@@ -5,122 +5,121 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Birthday — Kawaii Full Effects</title>
 <style>
-  :root{
-    --bg1:#fff0f6;
-    --bg2:#fff6fb;
-    --pink:#ff4fa8;
-    --accent:#ff89c9;
-    --muted:#5a3850;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: "Poppins";
-    background: radial-gradient(circle at 10% 10%, #fff8fb 0%, #fff0f6 25%, #ffe6f9 100%);
-    color:var(--muted);
-    text-align:center;
-    overflow-x:hidden;
-    min-height:100vh;
-    padding:28px 12px 60px;
-  }
+:root{
+  --bg1:#fff0f6;
+  --bg2:#fff6fb;
+  --pink:#ff4fa8;
+  --accent:#ff89c9;
+  --muted:#5a3850;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Poppins";
+  background: radial-gradient(circle at 10% 10%, #fff8fb 0%, #fff0f6 25%, #ffe6f9 100%);
+  color:var(--muted);
+  text-align:center;
+  overflow-x:hidden;
+  min-height:100vh;
+  padding:28px 12px 60px;
+}
+header{margin-bottom:8px}
+h1{
+  margin:10px 0 6px;
+  color:var(--pink);
+  font-size:38px;
+  text-shadow:0 6px 18px rgba(255,74,154,0.12);
+}
+.sub{font-size:14px; color:#b14a84; margin-bottom:6px}
 
-  header{margin-bottom:8px}
-  h1{
-    margin:10px 0 6px;
-    color:var(--pink);
-    font-size:38px;
-    text-shadow:0 6px 18px rgba(255,74,154,0.12);
-  }
-  .sub{font-size:14px; color:#b14a84; margin-bottom:6px}
+/* FRAME */
+.birthday-frame{
+  position:relative;
+  width:min(88vw,320px);
+  height:min(88vw,320px);
+  margin:18px auto;
+  border-radius:22px;
+  padding:10px;
+  background:linear-gradient(180deg,#fff7fb,#ffe8f6);
+  border:5px solid #ffd1eb;
+  box-shadow:0 12px 35px rgba(255,120,170,0.15);
+  overflow:hidden;
+}
+.photo{
+  width:100%; height:100%;
+  object-fit:cover;
+  border-radius:14px;
+}
 
-  /* FRAME */
-  .birthday-frame{
-    position:relative;
-    width:320px;
-    height:320px;
-    margin:18px auto;
-    border-radius:22px;
-    padding:10px;
-    background: linear-gradient(180deg,#fff7fb,#ffe8f6);
-    border:5px solid #ffd1eb;
-    box-shadow: 0 12px 35px rgba(255,120,170,0.15);
-    overflow:hidden;
-  }
-  .photo{
-    width:100%; height:100%;
-    object-fit:cover;
-    border-radius:14px;
-  }
+/* Cake + countdown */
+.cake-wrapper{
+  position:absolute;
+  right:12px; top:12px;
+  background: rgba(255,255,255,0.7);
+  padding:6px 10px; border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  color:var(--pink);
+  font-weight:700;
+  min-width:90px;
+  text-align:right;
+}
+.cake-icon{font-size:19px}
+.age-small{
+  font-size:14px; color:#8e2a61;
+  line-height:1.2;
+}
+#nextAgeCountdown { font-size:11px; color:#b14578; }
 
-  /* Cake + countdown */
-  .cake-wrapper{
-    position: absolute;
-    right:12px; top:12px;
-    background: rgba(255,255,255,0.7);
-    padding:6px 10px; border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.06);
-    color:var(--pink);
-    font-weight:700;
-    min-width:90px;
-    text-align:right;
-  }
-  .cake-icon{font-size:19px}
-  .age-small{
-    font-size:14px; color:#8e2a61;
-    line-height:1.2;
-  }
-  #nextAgeCountdown { font-size:11px; color:#b14578; }
+/* MARQUEE */
+.marquee{
+  margin-top:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  font-size:min(5vw,18px);
+  color:#b12f76;
+  font-weight:700;
+  animation: runtext 14s linear infinite;
+}
+@keyframes runtext{
+  from{transform:translateX(100%)}
+  to{transform:translateX(-100%)}
+}
 
-  /* MARQUEE */
-  .marquee{
-    margin-top:14px;
-    white-space:nowrap;
-    overflow:hidden;
-    font-size:18px;
-    color:#b12f76;
-    font-weight:700;
-    animation: runtext 14s linear infinite;
-  }
-  @keyframes runtext{
-    from{transform:translateX(100%)}
-    to{transform:translateX(-100%)}
-  }
+.controls{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.icon-btn{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(180deg,#ff8fc7,#ff4fa8);
+  color:white;font-size:28px;border:none;cursor:pointer;
+  box-shadow:0 10px 30px rgba(255,80,140,0.18);
+  display:flex;align-items:center;justify-content:center;
+}
+.small-btn{
+  background:#fff; color:var(--pink); padding:10px 12px;
+  border-radius:12px; border:1px solid #ffd6ea; font-weight:700;
+  cursor:pointer;
+}
 
-  .controls{
-    margin-top:18px;
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    flex-wrap:wrap;
-  }
-  .icon-btn{
-    width:64px;height:64px;border-radius:50%;
-    background:linear-gradient(180deg,#ff8fc7,#ff4fa8);
-    color:white;font-size:28px;border:none;cursor:pointer;
-    box-shadow:0 10px 30px rgba(255,80,140,0.18);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .small-btn{
-    background:#fff; color:var(--pink); padding:10px 12px;
-    border-radius:12px; border:1px solid #ffd6ea; font-weight:700;
-    cursor:pointer;
-  }
+#pesanArea{margin-top:18px; font-size:min(6vw,22px); color:var(--pink); font-weight:800;}
 
-  #pesanArea{margin-top:18px; font-size:22px; color:var(--pink); font-weight:800;}
+.effects-layer{
+  position:fixed; inset:0;
+  pointer-events:none; z-index:50;
+}
 
-  .effects-layer{
-    position:fixed; inset:0;
-    pointer-events:none; z-index:50;
-  }
+/* KAWAII EFFECTS */
+.heart,.petal,.sparkle,.balloon,.star,.moon,.cloud{
+  position:absolute;
+}
 
-  .heart{position:absolute}
-  .petal{position:absolute}
-  .sparkle{position:absolute}
-  .balloon{position:absolute}
-
-  @media(max-width:420px){
-    .birthday-frame{width:88vw;height:88vw}
-  }
+@media(max-width:420px){
+  .birthday-frame{width:88vw;height:88vw}
+}
 </style>
 </head>
 
@@ -132,7 +131,7 @@
 </header>
 
 <div class="birthday-frame">
-  <img src="foto.jpg" class="photo">
+  <img src="foto.jpg" class="photo" alt="Foto ulang tahun">
   <div class="cake-wrapper">
     <span class="cake-icon">🎂</span>
     <div class="age-small" id="tinyAge">...</div>
@@ -157,8 +156,7 @@
 
 <script>
 /* ===============================
-   SIMPLE AGE (ONLY YEARS)
-   + COUNTDOWN TO NEXT BIRTHDAY
+   SIMPLE AGE + COUNTDOWN
    =============================== */
 (function(){
   const birth = new Date("2002-11-15T00:00:00+07:00");
@@ -168,25 +166,17 @@
 
   function updateAge(){
     const now = new Date();
-
-    // hitung umur sekarang (tahun saja)
     let age = now.getFullYear() - birth.getFullYear();
     const hasHadBirthday =
       now.getMonth() > birth.getMonth() ||
       (now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
-
     if(!hasHadBirthday) age -= 1;
 
-    // tampilkan H1 umur
     h1Age.textContent = age + " Tahun";
-
-    // tampilkan umur kecil (contoh: "22 tahun")
     smallAge.textContent = age + " thn";
 
-    // target ulang tahun berikutnya
-    const next = new Date(now.getFullYear(), 10, 15, 0,0,0); // 15 Nov
+    const next = new Date(now.getFullYear(), 10, 15,0,0,0);
     if(hasHadBirthday) next.setFullYear(now.getFullYear()+1);
-
     const diff = next - now;
 
     const d = Math.floor(diff / (1000*60*60*24));
@@ -194,8 +184,7 @@
     const m = Math.floor((diff % (1000*60*60)) / (1000*60));
     const s = Math.floor((diff % (1000*60)) / 1000);
 
-    cdText.textContent =
-      `Menuju ${age+1} thn: ${d}h ${h}j ${m}m ${s}d`;
+    cdText.textContent = `Menuju ${age+1} thn: ${d} hari ${h} jam ${m} menit ${s} detik`;
   }
 
   updateAge();
@@ -221,11 +210,11 @@ document.getElementById("musicToggle").onclick = ()=>{
 };
 
 /* ===============================
-   EFFECTS (semua tetap sama)
+   KAWAII EFFECTS
    =============================== */
 const effects = document.getElementById("effects");
 
-/* sakura */
+/* sakura petals */
 setInterval(()=>{
   const p = document.createElement("div");
   p.className="petal";
@@ -251,10 +240,8 @@ setInterval(()=>{
   h.style.top="-5%";
   effects.appendChild(h);
   const dur=3500+Math.random()*2500;
-  h.animate([
-    {transform:"translateY(0)",opacity:1},
-    {transform:"translateY(100vh)",opacity:0}
-  ],{duration:dur, easing:"linear"});
+  h.animate([{transform:"translateY(0)",opacity:1},{transform:"translateY(100vh)",opacity:0}],
+            {duration:dur, easing:"linear"});
   setTimeout(()=>h.remove(), dur);
 },500);
 
@@ -267,9 +254,8 @@ setInterval(()=>{
   s.style.top=Math.random()*100+"%";
   s.style.fontSize= (10+Math.random()*10)+"px";
   effects.appendChild(s);
-  const dur=1500;
-  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:dur});
-  setTimeout(()=>s.remove(), dur);
+  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:1500});
+  setTimeout(()=>s.remove(), 1500);
 },220);
 
 /* balloons */
@@ -281,13 +267,51 @@ setInterval(()=>{
   b.style.bottom="-10%";
   effects.appendChild(b);
   const dur=5000+Math.random()*3000;
-  b.animate([
-    {transform:"translateY(0)",opacity:1},
-    {transform:"translateY(-120vh)",opacity:0}
-  ],{duration:dur});
+  b.animate([{transform:"translateY(0)",opacity:1},{transform:"translateY(-120vh)",opacity:0}],{duration:dur});
   setTimeout(()=>b.remove(), dur);
 },1200);
 
+/* stars */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="star";
+  s.textContent="⭐";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.fontSize=(6+Math.random()*8)+"px";
+  effects.appendChild(s);
+  s.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:2000+Math.random()*2000});
+  setTimeout(()=>s.remove(),3000);
+},300);
+
+/* moon */
+setInterval(()=>{
+  const m=document.createElement("div");
+  m.className="moon";
+  m.textContent="🌙";
+  m.style.left=Math.random()*100+"%";
+  m.style.top="10%";
+  effects.appendChild(m);
+  m.animate([{transform:"translateY(0)"},{transform:"translateY(10vh)"}],
+            {duration:10000, easing:"linear"});
+  setTimeout(()=>m.remove(),10000);
+},15000);
+
+/* cloud */
+setInterval(()=>{
+  const c=document.createElement("div");
+  c.className="cloud";
+  c.textContent="☁️";
+  c.style.left="-10%";
+  c.style.top=(Math.random()*50)+"%";
+  c.style.fontSize=(16+Math.random()*12)+"px";
+  c.style.opacity=0.5;
+  effects.appendChild(c);
+  c.animate([{transform:"translateX(0)"},{transform:"translateX(120vw)"}],
+            {duration:20000+Math.random()*10000, easing:"linear"});
+  setTimeout(()=>c.remove(),20000);
+},8000);
 </script>
+
 </body>
 </html>
