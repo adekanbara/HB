@@ -152,7 +152,7 @@ h1{
 <div class="controls">
   <button class="icon-btn" id="msgBtn">💌</button>
   <button class="small-btn" id="musicToggle">⏯ Musik</button>
-  <button class="icon-btn" id="dollBtn">🎎</button>
+  <button class="icon-btn" id="dollBtn">🎁</button>
 </div>
 
 <div id="pesanArea"></div>
@@ -329,7 +329,7 @@ document.getElementById("dollBtn").onclick = ()=>{
   doll.textContent = "🧸"; // boneka lucu
   doll.style.left = Math.random()*80 + "%";
   doll.style.top = "10%";
-  doll.style.fontSize = (30 + Math.random()*30) + "px";
+  doll.style.fontSize = (80 + Math.random()*80) + "px";
   doll.style.zIndex = 60;
   effects.appendChild(doll);
   doll.animate([{transform:"translateY(0)"},{transform:"translateY(100vh)"}],
