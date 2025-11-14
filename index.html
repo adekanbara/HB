@@ -2,310 +2,151 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday 💗</title>
+<title>Birthday Page</title>
 
 <style>
-/* ====== GLOBAL ====== */
-body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffd7f7, #ffe6ff);
-    overflow-x: hidden;
-    color: #ff1e8e;
-}
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ffe6f4, #ffeaff, #ffddf4);
+        text-align: center;
+        padding: 30px;
+    }
 
-/* ====== LOADING SCREEN ====== */
-#loadingScreen {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: white;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 22px;
-    color: #ff3ca0;
-}
-#loadingScreen span {
-    animation: blink 1s infinite;
-}
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.35; }
-    100% { opacity: 1; }
-}
+    h1 {
+        color: hotpink;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
 
-/* ====== TITLE ====== */
-h1 {
-    margin-top: 20px;
-    font-size: 42px;
-    color: #ff2190;
-    text-shadow: 0 0 8px #ff9ed4;
-}
+    /* Foto + Bingkai */
+    .birthday-frame {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        margin: 30px auto;
+        border: 6px solid #ff80c8;
+        border-radius: 20px;
+        padding: 10px;
+        background: linear-gradient(135deg, #ffe6f4, #ffd2eb);
+        box-shadow: 0 8px 25px rgba(255, 120, 170, 0.4),
+                    inset 0 0 20px rgba(255, 150, 200, 0.5);
+    }
 
-/* ====== PHOTO FRAME ====== */
-.frame {
-    width: 280px;
-    padding: 12px;
-    margin: 20px auto;
-    background: #ffdef3;
-    border-radius: 20px;
-    box-shadow: 0 0 18px rgba(255,120,170,0.45);
-    border: 4px dashed #ff70b7;
-}
-.photo {
-    width: 100%;
-    border-radius: 15px;
-    object-fit: cover;
-}
+    .birthday-frame::before {
+        content: "🎀 Happy Birthday 🎀";
+        position: absolute;
+        top: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffb3dd;
+        padding: 4px 14px;
+        border-radius: 12px;
+        font-weight: bold;
+        color: #b30069;
+        font-size: 15px;
+        box-shadow: 0 2px 6px rgba(255, 100, 170, 0.4);
+    }
 
-/* ====== MARQUEE ====== */
-.marquee {
-    overflow: hidden;
-    white-space: nowrap;
-    margin-top: 20px;
-}
-.marquee span {
-    display: inline-block;
-    padding-left: 100%;
-    font-size: 20px;
-    animation: run 12s linear infinite;
-}
-@keyframes run {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
+    .birthday-frame::after {
+        content: "🎂 🎉 💕";
+        position: absolute;
+        bottom: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffb3dd;
+        padding: 4px 14px;
+        border-radius: 12px;
+        font-weight: bold;
+        color: #b30069;
+        font-size: 16px;
+        box-shadow: 0 2px 6px rgba(255, 100, 170, 0.4);
+    }
 
-/* ====== AGE & COUNTDOWN ====== */
-#umurBox, #countdown {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #b30069;
-}
+    .birthday-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 14px;
+        display: block;
+    }
 
-/* ====== MUSIC BUTTON ====== */
-.music-btn {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background: #ffb7e5;
-    padding: 10px 13px;
-    border-radius: 50%;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff89c7;
-}
+    /* Teks berjalan */
+    .marquee {
+        margin-top: 20px;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 22px;
+        color: #b30069;
+        font-weight: bold;
+        animation: slide 12s linear infinite;
+    }
 
-/* ====== NEXT MESSAGE ====== */
-.msg-box {
-    margin-top: 20px;
-    background: #ffe0f7;
-    padding: 15px;
-    width: 260px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
-    box-shadow: 0 0 10px #ff9ed4;
-}
-.next-btn {
-    margin-top: 8px;
-    padding: 8px 16px;
-    background: #ff6fb4;
-    border: none;
-    color: white;
-    border-radius: 12px;
-    cursor: pointer;
-}
+    @keyframes slide {
+        from { transform: translateX(100%); }
+        to   { transform: translateX(-100%); }
+    }
 
-/* ====== POPUP CARD ====== */
-#popupCard {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255, 205, 235, 0.9);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9000;
-}
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    width: 70%;
-    max-width: 300px;
-    box-shadow: 0 0 20px #ff80c8;
-    font-size: 20px;
-}
-.close-btn {
-    margin-top: 15px;
-    padding: 8px 20px;
-    background: #ff7bc5;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-}
+    /* Tombol Pesan */
+    .msg-btn {
+        margin-top: 30px;
+        font-size: 50px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
 
-/* ====== SAKURA FALL ====== */
-.sakura {
-    position: fixed;
-    top: -10px;
-    width: 18px;
-    height: 18px;
-    background: pink;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: fall linear infinite;
-}
-@keyframes fall {
-    0% { transform: translateY(0) translateX(0); opacity: 1; }
-    100% { transform: translateY(110vh) translateX(40px); opacity: 0; }
-}
+    .msg-btn:hover {
+        transform: scale(1.2);
+    }
 
-/* ====== GLITTER ====== */
-.sparkle {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: sparkle 1.5s infinite;
-}
-@keyframes sparkle {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(2); opacity: 0.5; }
-    100% { transform: scale(1); opacity: 1; }
-}
+    #pesanArea {
+        margin-top: 20px;
+        font-size: 22px;
+        color: #b30069;
+        font-weight: bold;
+        min-height: 40px;
+    }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- ===== LOADING SCREEN ===== -->
-<div id="loadingScreen">
-    <span>Preparing birthday magic… ✨</span>
+<h1>Happy Birthday 💖</h1>
+
+<!-- Foto -->
+<div class="birthday-frame">
+    <img src="foto.jpg" class="birthday-photo">
 </div>
 
-<!-- MUSIC -->
-<audio id="bgm" src="musik.mp3" autoplay loop></audio>
-<div class="music-btn" onclick="toggleMusic()">🎶</div>
+<!-- Teks berjalan -->
+<div class="marquee">semoga keinginan dan harapannya terkabul</div>
 
-<h1>Happy Birthday Neng 💗</h1>
+<!-- Simbol pesan -->
+<div class="msg-btn" onclick="tampilPesan()">💌</div>
 
-<!-- PHOTO FRAME -->
-<div class="frame">
-    <img src="foto.jpg" class="photo">
-</div>
-
-<div id="umurBox">Menghitung umur…</div>
-<div id="countdown">Menghitung countdown…</div>
-
-<div class="marquee">
-    <span>semoga keinginan dan harapannya terkabul 💖</span>
-</div>
-
-<!-- NEXT MESSAGE -->
-<div class="msg-box">
-    <div id="msgText">Waktu berubah…</div>
-    <button class="next-btn" onclick="nextMsg()">Next</button>
-</div>
-
-<!-- POPUP CARD -->
-<div id="popupCard">
-    <div class="card">
-        🎁 Selamat Ulang Tahun 💗  
-        Semoga tahun ini lebih indah dari sebelumnya!
-        <br><br>
-        <button class="close-btn" onclick="closeCard()">Tutup</button>
-    </div>
-</div>
+<div id="pesanArea"></div>
 
 <script>
-/* ===== REMOVE LOADING ===== */
-setTimeout(() => {
-    document.getElementById("loadingScreen").style.display = "none";
-}, 1500);
+let tahap = 0;
 
-/* ===== MUSIC ===== */
-function toggleMusic() {
-    let bgm = document.getElementById("bgm");
-    if (bgm.paused) bgm.play();
-    else bgm.pause();
+function tampilPesan() {
+    const pesanBox = document.getElementById("pesanArea");
+
+    if (tahap === 0) {
+        pesanBox.innerHTML = "⏳ Waktu berubah";
+        tahap = 1;
+    } else if (tahap === 1) {
+        pesanBox.innerHTML = "🎂 Umur bertambah";
+        tahap = 2;
+    } else if (tahap === 2) {
+        pesanBox.innerHTML = "💘 Perasaan tertinggal";
+        tahap = 3;
+    } else {
+        pesanBox.innerHTML = "";
+        tahap = 0;
+    }
 }
-
-/* ===== AGE SIMPLE ===== */
-function updateAge() {
-    const lahir = new Date("2002-11-15T00:00:00+07:00");
-    const now = new Date(Date.now() + 7*3600*1000);
-    let detik = Math.floor((now - lahir) / 1000);
-    document.getElementById("umurBox").innerHTML =
-        "Umur: " + Math.floor(detik / (3600*24*365)) +
-        " Tahun — berjalan " + detik.toLocaleString() + " detik";
-}
-setInterval(updateAge, 1000);
-
-/* ===== COUNTDOWN ===== */
-function cd() {
-    const now = new Date(Date.now() + 7*3600*1000);
-    let y = now.getFullYear();
-    let target = new Date(`${y}-11-15T00:00:00+07:00`);
-    if (now > target) target = new Date(`${y+1}-11-15T00:00:00+07:00`);
-
-    let s = Math.floor((target - now)/1000);
-    let h = Math.floor(s/86400);
-    let j = Math.floor((s%86400)/3600);
-    let m = Math.floor((s%3600)/60);
-    let d = s%60;
-
-    document.getElementById("countdown").innerHTML =
-        `Countdown ulang tahun: ${h} hari ${j} jam ${m} menit ${d} detik`;
-}
-setInterval(cd, 1000);
-
-/* ===== NEXT MESSAGE ===== */
-const pesan = [
-    "Waktu berubah…",
-    "Umur bertambah…",
-    "Perasaan tertinggal…",
-    "Namun kenangan tetap indah 💗"
-];
-let i = 0;
-function nextMsg() {
-    i = (i + 1) % pesan.length;
-    document.getElementById("msgText").innerHTML = pesan[i];
-}
-
-/* ===== POPUP AUTO ===== */
-setTimeout(() => {
-    document.getElementById("popupCard").style.display = "flex";
-}, 2500);
-function closeCard() {
-    document.getElementById("popupCard").style.display = "none";
-}
-
-/* ===== SAKURA ===== */
-setInterval(() => {
-    let s = document.createElement("div");
-    s.className = "sakura";
-    s.style.left = Math.random()*100 + "vw";
-    s.style.animationDuration = 5 + Math.random()*5 + "s";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 10000);
-}, 400);
-
-/* ===== GLITTER ===== */
-setInterval(() => {
-    let sp = document.createElement("div");
-    sp.className = "sparkle";
-    sp.style.left = Math.random()*100 + "vw";
-    sp.style.top = Math.random()*100 + "vh";
-    document.body.appendChild(sp);
-    setTimeout(() => sp.remove(), 1500);
-}, 250);
 </script>
 
 </body>
